@@ -1,0 +1,584 @@
+<!--START SECTION-->
+<section id='content'>
+
+<h2>{{.Data.title}}</h2>
+  <br>
+    <br>
+
+
+<!--CREATE DATA TYPE-->
+<div class="panel">
+ 
+
+<!--END PANEL-->
+ </div>
+
+
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--SAVE-->
+    <div id="form_page_savebtn"><input type="submit" value="Save" class="button" title="ctrl+s"></div>
+
+
+     <!--ADD-->
+    <div id="AddButton">
+      <a href="/{{.Globals.AdminSlug}}/data/add/">NEW</a>
+    </div>
+
+    <div class="clear"></div>
+    <br>
+    <!--GENERAL
+    <details>
+    <summary>GENERAL</summary>
+    <div id="form_page_title"><label>Title</label><br/><input id="input_title" type="input" name="title" placeholder="Enter your title here..." class="control_forms" /></div>
+    -->
+    <br>
+    </details>
+
+     <!--LIST-->
+     <details>
+
+     <summary>List</summary>
+      <!--LIST-->
+<div class="panel">
+    <table id="List">
+    <tr>
+    <td>TITLE</td>
+    <td></td>
+    </tr>
+    {{range $k,$v := .List}}
+      <tr>
+        <td>
+          <a href="/{{$.Globals.AdminSlug}}/data/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+        </td>
+        <td>
+          <a href="/{{$.Globals.AdminSlug}}/data/delete/{{$v.key}}" class="deleteItem">delete</a>
+        </td>
+      </tr> 
+        
+    {{end}}
+    </table>
+      <!--END LIST-->
+
+</div>
+   
+    </details>
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+
+
+<br />
+<br />
+
+
+
+
+<!--END SECTION-->
+</section>
+
+<!--STYLE-->
+<style>
+
+label {
+  display: inline-block;
+  width: auto;
+  padding: 4px;
+}
+  #submitBtn {
+z-index: 2;
+position: absolute;
+top: 120px;
+left: 774px;
+    padding: 10px 40px;
+    font: 14px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+input#submitBtn:hover {
+  background: #999;
+  cursor: pointer;
+
+}
+
+#tabs input[type='input'] {
+    width: 250px;
+  padding: 4px 2px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+    width: 800px;
+  height: 300px;
+  min-height: 400px;
+    background: #f00;
+    position: relative;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    background: #ccc;
+      padding: 20px 50px;
+
+}
+
+#buttons {
+  width: 600px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}
+
+.submit_button {
+  position: absolute;
+  z-index: 1000;
+}
+</style>
+
+<!--CODE MIRROR-->
+<link rel='stylesheet' type='text/css' href='/css/libs/codemirror.css' />
+<script type='text/javascript'  src='/js/libs/codemirror.js' ></script>
+<script type='text/javascript'  src='/js/libs/mode/xml/xml.js' ></script>
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+
+ var myTextarea = document.getElementById("text_area_data_type_list");
+  var myTextarea2 = document.getElementById("text_area_data_type_item");
+
+ var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'
+  });
+
+  var editor2 = CodeMirror.fromTextArea(myTextarea2, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'
+  });
+
+ editor.setSize("50%","60px");
+ editor2.setSize("50%","60px");
+
+
+
+$(document).ready(function(){
+
+    //TABS
+  
+  //TABS BUTTONS
+  $("#buttons").on('click',btnClick);
+  
+  //TABS BUTTON CLICK      
+  function btnClick(e){
+        
+        e.preventDefault();
+        
+        var hash = e.target.hash;
+        var num = hash.substr(-1);
+        var btns = e.currentTarget.children;
+        
+        $.each(btns,function(key,val){
+            var tab = "#tab"+String(key+1);
+              $(tab).css('zIndex',0);
+            var btn = $(btns[key]);
+                btn[0].className = "";
+        });
+
+        $(hash).css('zIndex',1);
+        $("#btn"+num).addClass('active');
+    //END BUTTONS CLICK
+    }
+
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+ //GLOBALS
+ var RowIndex;
+ var FieldIndex = 1;
+ /*
+ var field = 
+    '<div>'
+  + '<br />'
+  + '<label>Label</label><input type="input" name="fieldlabel" placeholder="Label" class="control_forms" />'
+  + '<br />'
+  + '<label>Name</label><input type="input" name="fieldname" placeholder="Name" class="control_forms" />'
+  + '<br />'
+  + '<label>Type</label><select name="fieldtype" placeholder="Type"><option>text</option><option>textarea</option></select>'
+  + '<br />'
+  + '<label>Errors</label><select multiple name="fielderrors" placeholder="Errors"><option>blank</option><option>email</option><option>phone</option></select>'
+  + '<br />'
+  + '<br />'
+  + '<hr />'
+  + '</div>';*/
+
+  //ADD FIELD
+  function AddField(){
+       var field = 
+          '<div>'
+        + '<br>'
+        + '<label>Name</label><input type="input" name="fieldName'+FieldIndex+'" placeholder="Name" class="control_forms" />'
+        + '&nbsp;&nbsp;'
+       // + '<label>Label</label><input type="input" name="fieldLabel'+FieldIndex+'" class="control_forms" />'
+        + '&nbsp;&nbsp;'
+        + '<label>UI</label>'
+        + '<select name="fieldUI'+FieldIndex+'" class="control_forms">'
+        + '<option>text</option>'
+        + '<option>textarea</option>'
+        + '<option>image</option>'
+        + '<option>date</option>'
+        + '</select>'
+        + '<br>'
+        + '<br>'
+        + '<hr>'
+        + '</div>';
+        /*
+        + '<label>Errors</label>'
+        //+ '&nbsp;&nbsp;&nbsp;'
+        //+ '<select multiple name="fieldErrors'+FieldIndex+'" >'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="blank">blank &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="email">email &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="phone">phone &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="url">url &nbsp;'
+        */
+        //+ '<option>email</option>'
+        //+ '<option>phone</option>'
+        //+ '</select>'
+
+
+      $("#Fields").append(field);
+
+      FieldIndex += 1;
+
+      //console.log(event);
+      console.log(FieldIndex);
+
+      $("#FieldCount").attr('value', FieldIndex);
+      console.log($("#FieldCount").attr('value'));
+  //END FUNC 
+  }
+
+
+
+
+  //CLICK ADD FIELD BUTTON
+  $("#AddField").on('click',function(event){
+      event.preventDefault();
+
+      AddField();
+
+      return false;
+
+   });
+  
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+    /*  event.preventDefault();
+      var url = event.target.action;
+
+      //console.log(event);
+      console.log($("#EditForm").serialize());
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+       });
+
+      return false;*/
+
+   });
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(1);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/data/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/data/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "delete";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           
+
+}
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+});
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    //ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        console.log(results);
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+})
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+       
+
+  //END CLICK
+  }); 
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      //form.attr('action','/{{.Globals.AdminSlug}}/data/list/');
+      form[0].reset();
+
+      FieldIndex = 1;
+      $("#Fields").empty();
+
+  //var textareaItem = $("#EditForm textarea[name='content']");
+      //textareaItem[0].innerHTML = "";
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  ResetForm();
+
+  //console.log(results);
+  
+  $("#EditForm .control_forms").each(function(i,v){
+     // console.log(v.name);
+      
+      var formName = v.name;
+
+     if(formName == 'typeName'){
+        var inputItem = $("#EditForm input[name='"+formName+"']");
+            inputItem[0].value = results[0].title;
+     }
+
+     if(formName == 'data_type_template_list'){
+          editor.setValue(results[0].TemplateList);
+          //var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            //textareaItem[0].innerHTML = results[0].TemplateList;
+        
+
+      }
+
+      if(formName == 'data_type_template_item'){
+                  editor2.setValue(results[0].TemplateList);
+          //var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            //textareaItem[0].innerHTML = results[0].TemplateItem;
+
+      }
+
+    //END EACH
+    });
+
+      //FOR 1
+      for(var r in results[0].fields){
+        
+       // console.log(results[0].fields[r]);
+        //console.log(r);
+
+        //IF 1
+        if(r != 0){
+            
+            AddField();
+
+
+            var inputItem = $("#EditForm input[name='fieldName"+ r +"']");
+                inputItem[0].value = results[0].fields[r].Name;
+
+            var selectItem = $("#EditForm select[name='fieldUI"+ r +"']");
+           console.log(selectItem);
+
+            //FOR 2
+            for(var s in selectItem[0].options){
+              
+              console.log(selectItem[0].options[s].value);
+              console.log(results[0].fields[r].UI);
+
+              if(selectItem[0].options[s].value == results[0].fields[r].UI){
+                console.log("match");
+                 var UI_IDX;
+
+                 //UI_IDX = selectItem[0].options[s].index;
+                  selectItem[0].selectedIndex = s;
+
+              }
+
+             //END FOR 2 
+            }
+
+
+        //END IF 1
+        }
+
+      //END FOR 1
+      }
+
+ 
+
+  //END FUNC
+  }
+
+//END DOC
+});
+
+</script>

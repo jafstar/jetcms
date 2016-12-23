@@ -1,0 +1,796 @@
+input {
+  pointer-events: auto;
+}
+textarea {
+  pointer-events: auto;
+  overflow: auto; 
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+
+
+iframe {
+  border: 0px;
+  frameBorder: 0px;
+}
+
+img {
+  border: 0px;
+  /* REQUIRED FOR AJAX
+  pointer-events: none;*/
+}
+
+
+
+a {
+  border: 0px;
+  text-decoration: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+}
+
+
+
+.clear {
+  width: 100%;
+  height: 0px;
+  clear: both;
+}
+.center {
+  margin: 0px auto;
+}
+.w960 {
+  width: 960px;
+}
+
+.R50 {
+  width: 40%;
+  float: right;
+}
+
+.L50 {
+  width: 40%;
+  float: left;
+}
+
+
+
+body {
+  background: #f0f0f0;
+  /*background: #f0f0f0  url('../img/patterns/wood_black.jpg');
+*/
+  overflow-x: hidden;
+  margin: 0px;
+}
+
+table td {
+  padding: 5px 10px;
+}
+
+header {
+  width: 100%;
+  height: 30px;
+  border-bottom: 0px solid #999;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  color: #FFF;
+  text-align: center;
+  padding: 5px 0px;
+  z-index: 100;
+}
+
+input:focus {
+  background: #dcdcdc
+}
+
+
+
+/*
+#RECENT_BOX {
+  width: 200px;
+  height:200px;
+  margin-left: 20px;
+      margin-top: 3px;
+  float: left;
+  position: relative;
+}*/
+
+summary {
+  font: bold 14px arial;
+  color: #333;
+  padding: 9px;
+  margin: 0px 0px 10px 0px;
+  outline: none;
+  cursor:pointer;
+  background: #999;
+  border-radius: 1px;
+}
+details {
+  margin-bottom: 2px;
+}
+details input {
+  width: 90%;
+  padding: 8px 4px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+details label {
+  margin-left: 5px;
+}
+
+
+
+
+#logo {
+  width: 270px;
+  height: 30px;
+  float: left;
+ border-radius: 5px;
+ margin-left: 20px;
+}
+
+#MenuLogo {
+  color: #ccc;
+     font: 14px arial;
+     font-variant: small-caps;
+    cursor: pointer;
+    float: left;
+   /* background: #000 url('../dir/icons/menu.png') no-repeat;
+    background-size: 28px 20px;
+    background-position: 5px 5px;*/
+    background: #000;
+    margin-top: -5px;
+}
+
+#logo h1 {
+  margin: 0px;
+  font: 25px arial;
+   font-variant: small-caps;
+   color: transparent;
+   height: 10px;
+   color: #fff;
+}
+
+nav {/*
+  float: left;
+  padding: 5px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-left: 100px;
+  text-align: left;*/
+}
+
+
+#AdminMenu {
+  background: #222;
+  width: 280px;
+  height: 100%;
+  padding: 0px 0px 10px 0px;
+  position: fixed;
+  top: 40px;
+  left: 0px;
+    font: 18px arial;
+    text-align: left;
+    color: #444; 
+    z-index: 3000;
+
+}
+
+
+#AdminMenu nav a {
+  color: #dcdcdc;
+  font: 14px arial;
+  text-decoration: none;
+  font-variant: small-caps;
+  display: block;
+  width: 260px;
+  background: #444;
+  padding: 12px 0px 12px 20px;
+  margin: 0px;
+}
+
+#AdminMenu nav a:hover {
+  background: #555;
+  color: #ccc;
+}
+nav dl {
+  float: left;
+  margin-right: 0px;
+}
+nav dt {
+  margin-bottom: 0px;
+
+}
+#AdminMenu ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+#AdminMenu li {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+
+}
+
+#AdminMenu ul.menuLevel1 li {
+  display: block;
+  margin-bottom: 1px;
+}
+#AdminMenu a.hasKids {
+  display: block;
+  width: auto;
+}
+
+#AdminMenu ul.menuLevel2 {
+  display: none;
+}
+
+#AdminMenu ul.menuLevel2 li {
+  display: list-item;
+  float: none;
+}
+
+#AdminMenu ul.menuLevel2 li a {
+  padding: 5px 10px;
+  width: 100%;
+  border-bottom: 1px solid #777;
+}
+
+#AdminMenu ul li.hasKids:hover {
+  background: transparent;
+}
+
+#AdminMenu ul li.hasKids:hover > ul.menuLevel2  {
+  display: block;
+}
+
+
+#TopMenu {
+  background: transparent;
+  width: 250px;
+  padding: 5px;
+  text-align: center;
+  color: #999;
+  display: block;
+  margin-left: 0px;
+  margin-top: 0px;
+  float:right;
+}
+
+#TopMenu a {
+  width: auto;
+  height:20px;
+  display: inline-block;
+      font: 12px arial;
+      color: #999;
+      padding: 0px;
+      margin: 0px;
+}
+
+#HelpMenu {
+  background: transparent;
+  width: 250px;
+  padding: 5px;
+  position: absolute;
+  bottom:60px;
+  left: 10px;
+  z-index: 4000;
+  text-align: center;
+  color: #444;
+  display: block;
+  margin: 0px auto;
+}
+
+#HelpMenu a {
+  width: auto;
+  height:20px;
+  display: inline-block;
+      font: 12px arial;
+      color: #444;
+      padding: 0px;
+      margin: 0px;
+}
+/*********************CONTENT******************/
+section#content {
+  width: 100%;
+  background: transparent;
+  margin-top: 0px;
+  color: #000;
+  font: 12px arial;
+  padding: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
+}
+
+footer {
+  width: 100%;
+  height: 12px;
+  background: #444;
+  position: fixed;
+  z-index: 100;
+  bottom: 0px;
+  left: 0px;
+  color: #dcdcdc;
+  font: 9.5px arial;
+  text-align: center;
+  padding: 3px 0px;
+  display: none;
+}
+
+
+/*******FORMS************/
+textarea.control_forms {
+  width: 500px;
+  height: 200px;
+  border: 0px;
+}
+
+
+/*************TITLE*****************/
+section h2 {
+  font: bold 14px arial;
+  font-variant: small-caps;
+}
+
+
+/****COPYRIGHT***/
+#copyright {
+  color: #999;
+}
+/****PRELOADER***/
+#preloader {
+  opacity: 0;
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  right: 0px;
+  top: 2px;
+  margin: -45px 0px 0px -45px;
+  text-align: center;
+  background: #000;
+  border-radius: 5px;
+  padding: 10px 0px;
+
+}
+
+#preloader img {
+  width: 50px;
+}
+
+
+.panel {
+  background: transparent;
+  width: 100%;
+  margin-right: 0px;
+  float: left;
+  height: auto;
+  padding: 0%;
+  margin-top: 30px;
+}
+
+section#content.settings .panel {
+  margin: 0px auto;
+  float: none;
+}
+
+
+/*****DOCUMENT BUTTONS*****/
+
+#DocBtns {
+  width: 200px;
+  background: transparent;
+  float: left;
+  margin-top: 1px;
+}
+
+#AddButton {
+  width: 80px;
+    float: right;
+    margin-top: 5px;
+  /*  position: absolute;
+    z-index: 999;
+    top: 0px;
+    right: 100px;*/
+}
+
+#AddButton a {
+    padding: 10px;
+        font: 10px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 1px;
+  text-align: center;
+  position: relative;
+      z-index: 999;
+  text-transform: uppercase;
+
+}
+
+#form_page_savebtn {
+  width: 80px;
+  display: block;
+  float: right;
+  margin-right: 20px;
+
+}
+#form_page_savebtn input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font: 10px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 1px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+#form_page_savebtn input[type="submit"]:hover,
+#AddButton a:hover {
+  background: #999;
+  cursor: pointer;
+
+}
+
+#form_page_title input{
+  /*
+  width: 700px;
+  height: 30px;
+  padding: 4px;
+  font: 18px arial;
+  color: #999;
+    border: 0px;
+  */
+}
+
+#form_page_content textarea {
+    width: 800px;
+  height: 1000px;
+  padding: 4px;
+  font: 18px arial;
+  color: #999;
+  border: 0px;
+}
+#form_page_desc {
+  
+}
+#form_page_keyw {
+  
+}
+input#input_slug {
+ 
+  font: 12px arial;
+  color: #333;
+  background: #fff;
+   
+
+}
+
+input#input_slug:focus {
+
+  background: #dcdcdc;
+}
+
+#form_page_template {
+  
+}
+
+#form_page_js {
+  
+}
+
+#form_page_css {
+  
+}
+
+/*****SIDEBAR*****/
+#Sidebar {
+  
+  width: 300px;
+  height: 100%;
+  background: #dcdcdc;
+  
+  position: fixed;
+  right: 0px;
+  top: 84px;
+  overflow-x: display;
+  z-index: 5000;
+  
+  padding: 6px;
+
+  border-left: 0px solid #ccc;
+  border: 0px solid #999;
+  border-radius: 0px;
+  border-bottom-left-radius: 2px;
+
+}
+
+
+#SidebarCloseBtn {
+  width: 14px;
+  height: 30px;
+  background: #ccc;
+  color: #888;
+  position: absolute;
+  left:-18px;
+  top: 43px;
+  text-align: center;
+  padding: 2px;
+  cursor: pointer;
+  font: 12px arial;
+}
+
+
+
+#Sidebar .panel {
+
+  background: #dcdcdc;
+}
+
+
+/********SIDEBAR TD LINKS*********/
+.deleteItemTD {
+display: block;
+float: right;
+width: auto;
+background: #999;
+position: absolute;
+right: 10px;
+padding: 1px 7px 4px 7px;
+border-radius: 10px;
+}
+
+.deleteItemTD a:before {content:'';}
+.deleteItemTD a:after {content:'';}
+
+td.deleteItemTD a {
+ color: #ccc;
+ padding: 0px;
+ font: 10px arial;
+ margin: 0px;
+}
+
+td.deleteItemTD a:hover {
+ color: #333;
+ }
+
+a.listItem {
+ color: #333;
+ padding-left: 3px;
+ border-left: 1px solid #555;
+}
+
+#shell {
+  margin-top: 10px;
+  margin-left: 300px;
+  background: transparent;
+}
+
+/**********Pagebar***********/
+
+#PageBarGutter {
+  width: 300px;
+  height: 30px;
+  background: transparent;
+  float: left;
+  display: none;
+}
+#PageBar {
+width: 730px;
+position: fixed;
+top: 0px;
+left: 290px;
+background: transparent;
+height: 44px;
+z-index: 3000;
+}
+
+#PageBar input,
+#PageBar select{
+  padding: 2px 5px;
+  font: 24px arial;
+  border: 0px;
+  margin-right: 20px;
+  margin-top:3px;
+  width: 500px;
+  border-radius: 2px;
+  float:left;
+}
+
+,
+#form_page_version {
+  float: left;
+}
+
+.PageTitle {
+  text-align: left;
+  padding: 0px;
+  font: 14px arial;
+  color:#fff;
+  text-transform: uppercase;
+  margin-top: 7px;
+  margin-left: 30px;
+}
+
+.PageTitle:before {
+  content:'>>  ';
+}
+
+h2.PageBarTitle {
+  float: left;
+  display: block;
+  text-align: center;
+}
+#SelectDiv {
+  float: left;
+}
+#SelectDataType {
+  float: left;
+  width: 140px;
+}
+
+#SelectTypeName {
+    float: left;
+  width: 220px;
+}
+
+#form_page_title {
+}
+#form_page_slug {
+}
+
+
+#SEO_BOX_BG {
+  width: 300px;
+  background: #999;
+  margin-left: -210px;
+  margin-top: 0px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+
+#SEO_BOX {
+  width: 100px;
+  height:200px;
+  float: left;
+    margin-left: -78px;
+    margin-top: 3px;
+    position: relative;
+    z-index: 9000;
+    right: 30px;
+}
+
+
+#SEO_BOX summary {
+  font: bold 14px arial;
+  color: #333;
+  padding: 9px;
+  margin: 1px 0px 0px 0px;
+  outline: none;
+  cursor:pointer;
+  background: #999;
+  border-radius: 1px;
+}
+details#SEO_BOX {
+  margin-bottom: 2px;
+}
+
+details#SEO_BOX input {
+  width: 90%;
+  padding: 8px 4px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+details#SEO_BOX label {
+  margin-left: 5px;
+}
+
+
+/*********TABS**********/
+#tabs input[type='input'] {
+    width: 100%;
+  padding: 0px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+    width: 100%;
+  height: 760px;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+      padding: 0px;
+      background: #ccc;
+
+}
+
+#tabs textarea {
+  width: 720px;
+  height: 410px;
+  padding: 10px;
+}
+
+#buttons {
+  width: 600px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}
+
+#PAGES_SEO_TAB {
+  width: 70%;
+  padding: 20px;
+}
+
+#PAGES_SEO_TAB input[type='input'] {
+  font: 18px arial;
+  padding: 2px 4px;
+  border: 1px solid #dcdcdc;
+
+}
+
+
+#ItemFields {
+  width: 90%;
+  padding: 5%;
+}
+
+#ItemFields input {
+  font: 18px arial;
+  padding: 2px 4px;
+  width: 100%;
+}
+
+#ItemFields input[type='date'] {
+  width: 200px;
+  font: 18px arial;
+}
+
+#ItemFields textarea {
+  width: 100%;
+    font: 18px arial;
+
+}

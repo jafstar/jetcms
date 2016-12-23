@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>{{.Data.title}}</title>
+  
+  <meta charset="utf-8">
+  <meta name='description' content='{{.Data.description}}'>
+  <meta name='keywords' content='{{.Data.keywords}}'>
+  
+  <!--<link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>-->
+  <link rel='stylesheet' type='text/css' href='/css/404.css' />
+  {{if .Data.css}}<link rel='stylesheet' type='text/css' href='{{.Data.css}}' />{{end}}
+
+
+  {{if .Data.js}}<script type='text/javascript'  src='{{.Data.js}}'></script>{{end}}
+  <script type='text/javascript'  src='/js/scripts.js'></script>
+  
+  <link rel='icon' href='/favicon.ico' type='image/x-icon'>
+  
+</head>
+<body>
+
+
+<!--SHELL-->
+<div id='shell'>
+
+
+      <h1>404</h1>
+      <h2>Not Found</h2>
+      <a href="/">Return to the Homepage</a>
+
+<!--SHELL-->
+</div>
+
+
+</body>
+</html>

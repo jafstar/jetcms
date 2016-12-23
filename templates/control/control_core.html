@@ -1,0 +1,603 @@
+<section id='content'>
+
+
+<!--EDIT-->
+<div class="panel">
+
+
+  {{range $k,$v := .List}} 
+  <!--FORM-->
+  <form action="/{{$.Globals.AdminSlug}}/core/{{$v.key}}" id="EditForm" method="post" class="control_forms">
+ {{end}}
+
+    <!--PAGEBAR-->
+<div id="PageBar">
+
+        <!--VERSION NAME INPUT-->
+        {{range $k,$v := .List}}
+          <input id="input_version" type="input" name="core_version" placeholder="Version..." class="control_forms" value="{{$v.CoreVersion}}" />
+        {{end}}
+
+
+<!--DOCUMENT BUTTONS-->
+<div id="DocBtns">
+
+    <!--SAVE-->
+    <div id="form_page_savebtn">
+    <input type="submit" value="Save" class="button" title="ctrl+s">
+    </div>
+  
+       <!--ADD-->
+    <div id="AddButton">
+      <a href="/{{.Globals.AdminSlug}}/core/add/">New</a>
+    </div>
+
+<!--END DOC BTNS-->
+</div>
+
+  <!--END PAGEBAR-->
+</div>
+
+
+ {{range $k,$v := .List}}
+
+
+
+<!--TAB BUTTONS-->
+    <div id="buttons">
+    <a id="btn1" href="#tab1">Header</a>
+    <a id="btn2" href="#tab2">Footer</a>
+    </div>
+
+<!--TABS-->
+    <div id="tabs">
+
+    <!--TAB1-->
+    <div class="tab" id="tab1">
+      <!--TEXT AREA HEADER-->
+      <div id="form_page_header">
+        <textarea id="text_area_header" name="core_header" rows="3" cols="25" class="control_forms">{{$v.CoreHeader}}</textarea>
+      </div>
+  
+    </div>
+
+    <!--TAB2-->
+    <div class="tab" id="tab2">
+      <!--TEXT AREA FOOTER-->
+      <div id="form_page_footer">
+        <textarea id="text_area_footer" name="core_footer" rows="3" cols="25" class="control_forms">{{$v.CoreFooter}}</textarea>
+      </div>
+    </div>
+
+    <!--END TABS-->
+    </div>
+
+  {{end}}
+
+  
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+
+     <!--LIST-->
+     <details open>
+     <summary>List</summary>
+        <table id="List">
+        {{range $k,$v := .List}}
+          <tr>
+            <td>
+              <a href="/{{$.Globals.AdminSlug}}/pages/edit/{{$v.key}}" class="listItem">{{$v.CoreVersion}}</a>
+            </td>
+            <td class="deleteItemTD">
+              <a href="/{{$.Globals.AdminSlug}}/pages/delete/{{$v.key}}" class="deleteItem">x</a>
+            </td>
+          </tr> 
+            
+        {{end}}
+        </table>
+    </details>
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+    <input type="hidden" name="token" value="{{/*.token*/}}" />
+
+  <!--END FORM-->
+  </form>
+ </div>
+
+
+
+<!--END SECTION-->
+</section>
+
+
+  <style>
+/*
+#Sidebar {display:none;}
+#content {width:99% !important;}
+
+
+#tabs input[type='input'] {
+    width: 100%;
+  padding: 0px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+    width: 100%;
+  height: 760px;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+      padding: 0px;
+
+}
+
+#tabs textarea {
+  width: 720px;
+  height: 410px;
+  padding: 10px;
+}
+
+#buttons {
+  width: 600px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}*/
+  </style>
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+
+//CODE MIRROR
+ var headerTextArea = document.getElementById("text_area_header");
+ var footerTextArea = document.getElementById("text_area_footer");
+
+ var editor = CodeMirror.fromTextArea(headerTextArea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'  
+  });
+
+   editor.setSize("100%","600px");
+
+
+ var editor2 = CodeMirror.fromTextArea(footerTextArea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'  
+  });
+
+   editor2.setSize("100%","600px");
+
+
+//READY
+$(document).ready(function(){
+
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+    //editor.setValue(myTextarea.innerHTML);
+
+//INITIAL HIDE
+$("#tab2").hide();
+
+
+ //GLOBALS
+ var RowIndex;
+
+
+//KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+key.filter = function(event){
+  var tagName = (event.target || event.srcElement).tagName;
+  key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+  return true;
+}
+
+ //SAVE PAGE WITH KEYBOARD
+ key('⌘+s, ctrl+s', function(event){ 
+    event.preventDefault();
+    //alert('saving page');
+    var form =  $("#EditForm")[0];
+    console.log(form.action);
+    submitForm(form.action);
+ });
+
+   //TABS BUTTONS
+  $("#buttons").on('click',btnClick);
+
+  //TABS BUTTON CLICK      
+  function btnClick(e){
+        
+        e.preventDefault();
+        
+        var hash = e.target.hash;
+        var num = hash.substr(-1);
+        var btns = e.currentTarget.children;
+        
+        $.each(btns,function(key,val){
+            var tab = "#tab"+String(key+1);
+              $(tab).css('zIndex',0);
+            var btn = $(btns[key]);
+                btn[0].className = "";
+        });
+
+        $(hash).css('zIndex',1);
+        $("#btn"+num).addClass('active');
+    
+        if(num == 1){
+          $("#tab2").hide();
+          $("#tab1").show();
+        } else {
+          $("#tab1").hide();
+          $("#tab2").show();
+        }
+
+
+    //END BUTTONS CLICK
+    }
+
+
+
+
+/*
+ //EDITING INPUT TITLE
+$("#input_title").on('keyup',function(event){
+
+    //VARS
+    var title = event.target.value;
+    var slug = $("#input_slug")[0];
+
+    //MANIPULATE
+    title = title.trim();
+    title = title.replace(/\s/g,"-");
+    title = title.toLowerCase();
+
+    //title = title.match(/^[a-zA-Z0-9- ]*$/)
+    //title = title.replace(/[\W]/g, "");
+    title = title.replace(/[^a-zA-Z0-9\-]/gi,"-");
+
+    if(title.slice(-1) == "-"){
+      var length = title.length;
+          length = length -1;
+      title = title.substr(0,length);
+    } 
+
+    //ASSIGN TITLE TO SLUG
+    slug.value = "/"+title;
+
+    //DEBUG
+    //console.log(event);
+    //console.log("inserting BR at Char " + end);
+
+//END EDIT INPUT TITLE
+});
+  */
+/*
+//EDITING IN TEXTAREA
+$("#text_area_content").on('keyup',function(event){
+  
+  //IF RETURN LINE
+  if(event.keyCode == 13){
+
+    //VARS
+    var field = event.target;
+    var br;
+    var end = event.target.selectionEnd;
+    var start = event.target.selectionStart;
+
+    //SHIFT KEY
+    if(event.shiftKey == true){
+      event.preventDefault();
+      br = "<br>\r";
+    } else {
+      br = "";
+    }
+
+    //CALC END CURSOR
+    var end_cursor = field.value.substring(0, start).length + (br.length);
+
+
+    //INSERT <BR>
+    field.value = field.value.substring(0,start) + br  + field.value.substring(end,field.value.length);
+
+    //END CURSOR
+    field.focus();
+    field.setSelectionRange(end_cursor,end_cursor);
+
+    //DEBUG
+    //console.log(event);
+    //console.log("inserting BR at Char " + end);
+
+  //END IF
+  }
+
+//END EDIT TEXTAREA
+});
+*/
+
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+      event.preventDefault();
+      var url = event.target.action;
+
+      console.log(url);
+      //console.log($("#EditForm").serialize());
+     // submitForm(url);
+
+
+      return false;
+  //END CLICK SUBMIT
+   });
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+    //GET IDE TEXT
+  headerTextArea.innerHTML = editor.getValue();
+  footerTextArea.innerHTML = editor2.getValue();
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+          console.log(res);
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+       });
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  /*
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+  */
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+/*
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(0);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+        deleteCell.setAttribute("class","deleteItemTD");
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/pages/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/pages/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "x";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           */
+
+}
+
+/*
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+});*/
+
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+/*
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        LoadItem(results);
+      }
+    //END AJAX 
+    });*/
+
+//END CLICK LIST
+});
+
+/*
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+       
+
+  //END CLICK
+  }); 
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      form.attr('action','/{{.Globals.AdminSlug}}/pages/list/');
+      form[0].reset();
+
+  var textareaItem = $("#EditForm textarea[name='content']");
+      textareaItem[0].innerHTML = "";
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  //console.log(results);
+  
+    $("#EditForm .control_forms").each(function(i,v){
+      //console.log(v.name);
+      var formName = v.name;
+      for(var r in results){
+        //console.log(r)
+
+        if(r == formName){
+          //console.log(r + " = "+formName)
+          
+          if(formName == 'content'){
+            var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            textareaItem[0].innerHTML = results[r];
+
+          } else {
+            var inputItem = $("#EditForm input[name='"+formName+"']");
+            inputItem[0].value = results[r];
+
+          }
+        
+        //END IF  
+        }
+
+      //END FOR
+      }
+
+    //END EACH
+    });
+
+  //END FUNC
+  }
+  */
+
+//END DOC
+});
+
+</script>
+
+<!--END SECTION-->
+</section>

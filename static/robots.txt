@@ -1,0 +1,10 @@
+User-agent: *
+Sitemap: /sitemap
+User-agent: *
+Disallow: /errors
+Disallow: /admin
+User-agent: Mediapartners-Google
+Allow: / User-agent: Adsbot-Google
+Allow: / User-agent: Googlebot-Image
+Allow: / User-agent: Googlebot-Mobile
+Allow: / User-agent: ia_archiver-web.archive.orgDisallow: /

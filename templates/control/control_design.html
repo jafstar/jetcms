@@ -1,0 +1,611 @@
+<section id='content'>
+
+
+
+
+<!--EDIT-->
+<div class="panel">
+
+
+  {{range $k,$v := .List}} 
+  <!--FORM-->
+  <form action="/{{$.Globals.AdminSlug}}/style/" data-action="/{{$.Globals.AdminSlug}}/core/{{$v.keyCore}}" id="EditForm" method="post" class="control_forms">
+  {{end}}
+
+
+    <!--PAGEBAR-->
+<div id="PageBar">
+<div id="PageBarGutter"></div>
+
+    <!--STYLE FILENAME-->
+    <input id="input_version" type="input" name="style_name" placeholder="Stylesheet Name..." class="control_forms" value="" />
+
+    <!--DOCUMENT BUTTONS-->
+    <div id="DocBtns">
+        
+        <!--SAVE-->
+        <div id="form_page_savebtn"><input type="submit" value="Save" class="button" title="ctrl+s"></div>
+
+         <!--ADD-->
+        <div id="AddButton">
+          <a href="/{{.Globals.AdminSlug}}/pages/add/">New</a>
+        </div>
+
+    <!--END DOC BTNS-->
+    </div>
+
+<!--END PAGEBAR-->
+</div>
+<br />
+
+ {{range $k,$v := .List}}
+
+
+
+<!--TAB BUTTONS-->
+<div id="buttons">
+    <a id="btn1" href="#tab1">Header</a>
+    <a id="btn2" href="#tab2">Footer</a>
+    <a id="btn3" href="#tab3">Styles</a>
+</div>
+
+<!--TABS-->
+    <div id="tabs">
+
+    <!--TAB1-->
+    <div class="tab" id="tab1">
+      <div id="form_page_header">
+        <textarea id="text_area_header" name="core_header" rows="3" cols="25" class="control_forms">{{$v.CoreHeader}}</textarea>
+      </div>
+  
+    </div>
+
+    <!--TAB2-->
+    <div class="tab" id="tab2">
+      <div id="form_page_footer">
+        <textarea id="text_area_footer" name="core_footer" rows="3" cols="25" class="control_forms">{{$v.CoreFooter}}</textarea>
+      </div>
+    </div>
+
+
+    <!--TAB3-->
+    <div class="tab" id="tab3">
+      <div id="form_page_styles">
+        <textarea  id="text_area_styles" name="style_sheet" rows="3" cols="25"  class="control_forms"></textarea>
+      </div>
+    </div>
+
+
+
+    <!--END TABS-->
+    </div>
+
+  {{end}}
+
+
+
+
+<!--*************************STYLES******************************-->
+<br />
+
+      <!--TEXT AREA HEADER
+      <div id="form_page_header">
+            <br>
+        <textarea  id="text_area_header" name="style_sheet" rows="3" cols="25"  class="control_forms"></textarea>
+        
+      </div>-->
+
+
+
+
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+     <!--LIST-->
+     <details open>
+     <summary>List</summary>
+        <table id="List">
+        {{range $k,$v := .List}}
+          <tr>
+            <td>
+              <a href="/{{$.Globals.AdminSlug}}/style/edit/{{$v.key}}" class="listItem">{{$v.StyleName}}</a>
+            </td>
+            <td class="deleteItemTD">
+              <a href="/{{$.Globals.AdminSlug}}/style/delete/{{$v.key}}" data-name="{{$v.StyleName}}" class="deleteItem">x</a>
+            </td>
+          </tr>
+        {{end}}
+        </table>
+    </details>
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+    <input type="hidden" name="token" value="{{/*.token*/}}" />
+
+  <!--END FORM-->
+  </form>
+
+<!--END PANEL-->
+ </div>
+
+
+<!--END SECTION-->
+</section>
+
+
+<!--HIGHLIGHT JS
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+-->
+
+<!--STYLES-->
+<style>
+
+/*
+#tabs input[type='input'] {
+    width: 90%;
+  padding: 8px 4px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+    width: 750px;
+  height: 450px;
+    background: #f00;
+    position: relative;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    background: #ccc;
+      padding: 10px 10px;
+
+}
+
+#tabs textarea {
+  width: 720px;
+  height: 410px;
+  padding: 10px;
+}
+
+#buttons {
+  width: 600px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}*/
+</style>
+
+<!--CODE MIRROR-->
+<link rel='stylesheet' type='text/css' href='/css/libs/codemirror.css' />
+<script type='text/javascript'  src='/js/libs/codemirror.js' ></script>
+<script type='text/javascript'  src='/js/libs/mode/css/css.js' ></script>
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+
+//DOC READY
+$(document).ready(function(){
+
+var myTextarea = document.getElementById("text_area_styles");
+var headerTextArea = document.getElementById("text_area_header");
+var footerTextArea = document.getElementById("text_area_footer");
+
+ var editorHead = CodeMirror.fromTextArea(headerTextArea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'  
+  });
+
+
+ var editorFoot = CodeMirror.fromTextArea(footerTextArea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'  
+  });
+
+
+ var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'css'
+  });
+
+ //SET SIZE
+   editorHead.setSize("100%","600px");
+   editorFoot.setSize("100%","600px");
+
+  editor.setSize("100%","580px");
+
+
+
+
+  //hljs.configure({useBR: true});
+
+
+
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+
+
+ //GLOBALS
+ var RowIndex;
+
+
+
+//KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+key.filter = function(event){
+  var tagName = (event.target || event.srcElement).tagName;
+  key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+  return true;
+}
+
+ //SAVE PAGE WITH KEYBOARD
+ key('⌘+s, ctrl+s', function(event){ 
+    event.preventDefault();
+    //alert('saving page');
+    var form =  $("#EditForm")[0];
+    console.log(form.action);
+    submitForm(form.action);
+ });
+
+ /*
+
+   //TABS BUTTONS
+  $("#buttons").on('click',btnClick);
+
+  //TABS BUTTON CLICK      
+  function btnClick(e){
+        
+        e.preventDefault();
+        
+        var hash = e.target.hash;
+        var num = hash.substr(-1);
+        var btns = e.currentTarget.children;
+        
+        $.each(btns,function(key,val){
+            var tab = "#tab"+String(key+1);
+              $(tab).css('zIndex',0);
+            var btn = $(btns[key]);
+                btn[0].className = "";
+        });
+
+        $(hash).css('zIndex',1);
+        $("#btn"+num).addClass('active');
+    //END BUTTONS CLICK
+    }*/
+
+
+
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+      event.preventDefault();
+      var url = event.target.action;
+
+      //console.log(event);
+      //console.log($("#EditForm").serialize());
+      submitForm(url);
+
+
+      return false;
+  //END CLICK SUBMIT
+   });
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+  //GET IDE TEXT
+  myTextarea.innerHTML = editor.getValue();
+  headerTextArea.innerHTML = editorHead.getValue();
+  footerTextArea.innerHTML = editorFoot.getValue();
+
+  //console.log($("#EditForm").serialize());
+  var tab1 = $("#btn1");
+  var tab2 = $("#btn2");
+  var saveCore = false;
+  //var tab3 = $("#btn3");
+
+  if(tab1.hasClass('active') || tab2.hasClass('active')){
+    url = location.origin + $("#EditForm")[0].dataset.action;
+    saveCore = true;
+  }
+
+console.log(url);
+
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            if(!saveCore){
+              //IF KEY
+              if(res.key){
+                addListItem(res);
+              } else {
+                updateListItem(res.title);
+              }
+            }
+         }
+       });
+  
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+  
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(0);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+        deleteCell.setAttribute("class","deleteItemTD");
+
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/style/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/style/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "x";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           
+
+}
+
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+    //$("#EditForm").attr('action','/')
+    ResetForm();
+
+});
+
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+        //$("#EditForm").attr('method','GET');
+
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+})
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+      var styleName = event.target.dataset.name;
+     // console.log($(event.target));
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: {"styleName":styleName},
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+       
+
+  //END CLICK
+  }); 
+
+
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      form.attr('action','/{{.Globals.AdminSlug}}/style/');
+      form[0].reset();
+
+  var textareaItem = $("#EditForm textarea[name='style_sheet']");
+  //var textareaItem = $("#text_area_header");
+      textareaItem[0].innerHTML = "";
+  var inputVersion = $("#input_version");
+   inputVersion[0].value = "";
+     editor.setValue("");
+
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  //console.log(results);
+  
+    $("#EditForm .control_forms").each(function(i,v){
+      //console.log(v.name);
+      var formName = v.name;
+      for(var r in results){
+        //console.log(r)
+
+        if(r == formName){
+          //console.log(r + " = "+formName)
+          
+          if(formName == 'style_sheet'){
+            var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            //var textareaItem = $("#text_area_header");
+
+                textareaItem[0].innerHTML = results[r];
+
+
+          } else {
+              var inputItem = $("#EditForm input[name='"+formName+"']");
+              //var inputItem = $("#text_area_header");
+              inputItem[0].value = results[r];
+                //inputItem[0].innerHTML = results[r];
+
+          //END IF STYLESHEET
+          }
+        
+        //END IF FORNAME
+        }
+
+      //END FOR
+      }
+
+    //END EACH
+    });
+
+  //editor.toTextArea();  
+
+/*
+   editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'css'
+  });*/
+
+//console.log(myTextarea.innerHTML);
+  //SET IDE VALUE
+  editor.setValue(myTextarea.innerHTML);
+
+  // console.log(editor.options.value);
+
+  //END FUNC
+  }
+  
+
+//END DOC
+});
+
+</script>
+
+<!--END SECTION-->
+</section>

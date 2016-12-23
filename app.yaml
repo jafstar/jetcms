@@ -1,0 +1,37 @@
+application: yourappenginename
+version: 0-0-4
+runtime: go
+api_version: go1
+default_expiration: "1m"
+
+#[START env_variables]
+env_variables:
+  GCLOUD_STORAGE_BUCKET: staging.yourappenginename.appspot.com
+#[END env_variables]
+
+handlers:
+- url: /img
+  static_dir: static/img
+
+- url: /css
+  static_dir: static/css
+
+- url: /js
+  static_dir: static/js
+
+- url: /admin/static/dir/
+  static_dir: static/admin
+  login: admin
+
+- url: /(.*\.(txt|ico))
+  static_files: static/\1
+  upload: static/(.*\.(xml|txt|ico))
+
+- url: /sitemap\.xml
+  script: _go_app
+
+- url: /.*
+  script: _go_app
+
+
+

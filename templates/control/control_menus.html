@@ -1,0 +1,45 @@
+<section id='content'>
+<h2>{{.Data.title}}</h2>
+
+
+
+
+    <div id="add_menu">
+      <a rel="add">Add Row</a>
+    </div>
+<br>
+<br>
+  <form id="menus_form" action="/{{.AdminSlug}}/menus" method="post" class="control_forms">
+    <ul class="menu_ul">
+      <li class="menu_list_name" rel="menu_name">
+        <input type="input" name="Name" placeholder="Name" class="control_forms" />
+      </li>
+      <li class="menu_list_item" rel="0">
+        <div class="menu_input">
+          <input type="input" name="Value0" placeholder="Value" class="control_forms" />
+          <input type="input" name="URL0" placeholder="URL" class="control_forms" />
+        </div>
+      </li>
+    </ul>
+
+<!--
+    <div><input type="input" name="Value" placeholder="Value" class="control_forms" /></div>
+    <div><input type="input" name="URL" placeholder="URL" class="control_forms" /></div>
+    <div><input type="input" name="Parent" placeholder="Parent" class="control_forms" /></div>
+-->
+<br>
+<br>
+    <input type="hidden" name="token" value="{{.token}}" />
+    <div>
+      <input type="reset" value="Reset" class="reset">
+      <input type="submit" value="Submit" class="button">
+    </div>
+  </form>
+
+<script type="text/javascript">
+
+
+</script>
+
+  
+</section>

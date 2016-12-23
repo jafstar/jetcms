@@ -1,0 +1,243 @@
+﻿
+
+<!--PANEL
+<div class="panel">
+
+</div>-->
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+     <!--SERVICE CHECKS-->
+     <details open>
+     <summary>Service Checks</summary>
+          <ul id="ServiceChecks">
+            <li class="{{.Data.checkDataRead}}"><span>Database Read</span></li>
+            <li class="{{.Data.checkDataWrite}}"><span>Database Write</span></li>
+            <li class="{{.Data.checkMail}}"><span>Mail</span></li>
+            <li class="{{.Data.checkCache}}"><span>Memcache</span></li>
+            <li class="{{.Data.checkBlob}}"><span>Blobstore</span></li>
+          </ul>
+    </details>
+
+         <!--SERVER INFO-->
+     <details open>
+     <summary>Server Info</summary>
+               <span><b>Data Center:</b> {{.Data.dataCenter}}</span>
+            <br />
+            <span><b>Server:</b> {{.Data.serverSoftware}}</span>
+            <br />
+                        <span><b>Version:</b> {{.Data.versionID}}</span>
+                        <br />
+                        <span><b>User:</b> {{.Data.currentUser}}</span>
+
+
+
+    </details>
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+ 
+ <!--QUOTE OF THE DAY
+<div id="QOD">
+  
+  <progress id="ProgressBar" value="0" max="100">Uploading image...</progress>
+
+
+</div>-->
+
+  
+      
+
+
+<!--STYLES-->
+<style>
+.panel {
+  margin-left: 50px;
+}
+
+ul#ServiceChecks {
+  list-style-position: inside;
+  margin: 0px;
+  padding: 0px;
+  height: 220px;
+  margin-top: -20px;
+}
+
+ul#ServiceChecks li {
+  font-size: 58px;
+  height: 36px;
+}
+
+
+li.checkOnline {
+  color: #0f0;
+}
+
+li.checkOffline {
+  color:#f00;
+}
+
+ul#ServiceChecks li span {
+  color:#000;
+    font-size: 14px;
+    text-transform: uppercase;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+h1 {
+  margin: 0px;
+  padding: 0px;
+}
+</style>
+
+<script type="text/javascript">
+
+//READY DOC
+$(document).ready(function(){
+
+  //WELCOME
+  console.log('Welcome...displaying quote of the day.');
+/*
+    //AJAX
+      $.ajax({
+         type: "GET",
+         url: "http://quotes.rest/qod.json?category=inspire",
+          cache: true,
+          contentType: false,
+          processData: false,
+          success: function(res){
+
+            console.log("Success returning from GoodReads.com!");
+            getIMG(res.contents.quotes[0].background, res.contents.quotes[0].quote);
+
+          }
+        });
+
+
+
+  function getIMG(img,quote){
+    //AJAX
+      $.ajax({
+         type: "GET",
+         url: img,
+          cache: true,
+          //contentType: "image/jpg",
+          dataType: "image/jpeg",
+          xhr: function(){
+              
+
+                var xhr = $.ajaxSettings.xhr();
+                    xhr.upload.onprogress = function(evt){ 
+                      var PercentFin = Math.floor(evt.loaded / evt.total * 100);
+                      $("#ProgressBar")[0].value = PercentFin;
+
+                    };
+
+                    return xhr;
+          },
+
+         success: function(res){
+
+            console.log("Success image received!");
+            console.log(quote);
+          }
+
+      });
+  
+  //END FUNC
+  }
+*/
+
+//END DOC
+});
+
+</script>
+
+
+
+<!--
+<div id="embed-api-auth-container"></div>
+<div id="chart-container"></div>
+<div id="view-selector-container"></div>
+
+
+
+<script>
+(function(w,d,s,g,js,fs){
+  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+  js.src='https://apis.google.com/js/platform.js';
+  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+}(window,document,'script'));
+</script>
+
+<script>
+
+gapi.analytics.ready(function() {
+
+  /**
+   * Authorize the user immediately if the user has already granted access.
+   * If no access has been created, render an authorize button inside the
+   * element with the ID "embed-api-auth-container".
+   */
+  gapi.analytics.auth.authorize({
+    container: 'embed-api-auth-container',
+    clientid: 'embed-api-auth-container',
+  });
+
+
+  /**
+   * Create a new ViewSelector instance to be rendered inside of an
+   * element with the id "view-selector-container".
+   */
+  var viewSelector = new gapi.analytics.ViewSelector({
+    container: 'view-selector-container'
+  });
+
+  // Render the view selector to the page.
+  viewSelector.execute();
+
+
+  /**
+   * Create a new DataChart instance with the given query parameters
+   * and Google chart options. It will be rendered inside an element
+   * with the id "chart-container".
+   */
+  var dataChart = new gapi.analytics.googleCharts.DataChart({
+    query: {
+      metrics: 'ga:sessions',
+      dimensions: 'ga:date',
+      'start-date': '30daysAgo',
+      'end-date': 'yesterday'
+    },
+    chart: {
+      container: 'chart-container',
+      type: 'LINE',
+      options: {
+        width: '100%'
+      }
+    }
+  });
+
+
+  /**
+   * Render the dataChart on the page whenever a new view is selected.
+   */
+  viewSelector.on('change', function(ids) {
+    dataChart.set({query: {ids: ids}}).execute();
+  });
+
+});
+</script>
+
+
+</section>-->

@@ -1,0 +1,65 @@
+﻿<!--END CONTENT-->
+</div>
+
+
+<!--FOOTER-->
+<div id="footer"></div>
+
+
+<!--END SHELL-->
+</div>
+
+<!--END CONTAINER-->
+</div>
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+//document.body.requestFullscreen();
+
+function myMenu() {
+
+//IE9 classList.toggle()
+//IE8  document.querySelector()
+
+    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+    document.getElementsByClassName("shell")[0].classList.toggle("responsive");
+    document.getElementsByClassName("menu_overlay")[0].classList.toggle("responsive");
+    document.getElementsByClassName("container")[0].classList.toggle("responsive");
+
+}
+
+function mySubMenu() {
+    //document.getElementsByClassName("sub_menu")[0].classList.toggle("open");
+document.getElementsByClassName("sm1")[0].classList.toggle("open");
+  }
+
+function mySubMenu2() {
+    document.getElementsByClassName("sm2")[0].classList.toggle("open");
+    //document.getElementById("menu_themes")[0].classList.toggle("open");
+  }
+
+function mySubMenu3() {
+    document.getElementsByClassName("sm3")[0].classList.toggle("open");
+    //document.getElementById("menu_utils")[0].classList.toggle("open");
+
+  }    
+</script>
+
+<!--STYLES-->
+<style>
+
+
+
+
+</style>
+
+
+<script type='text/javascript'  src='/admin/static/dir/common.js'></script>
+
+<!--LIGHTBOX-->
+<div id="lightbox">
+  <img id="lb_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+</div>
+
+</body>
+</html>

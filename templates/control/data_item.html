@@ -1,0 +1,1087 @@
+<!-- Main Quill Local library-->
+<link href="/admin/static/dir/quill.snow.css" rel="stylesheet">
+<script src="/admin/static/dir/quill.min.js" type="text/javascript"></script>
+
+
+<!--STYLE-->
+<style>
+  label {
+    /*
+    display: inline-block;
+    width: 80px;*/
+  }
+
+  textarea {
+    min-height: 400px;
+  }
+
+  #PageBar {
+    display: none;
+  }
+
+  #ItemLinkShell {
+    text-align: right;
+    padding-right: 100px;
+    text-decoration: underline;
+  }
+
+  #editor-container {
+  height: 375px;
+  background: #fff;
+}
+
+.hiddenTextarea {
+  display: none;
+}
+
+#ListShell {
+width: 100%;
+margin-top: 50px;
+background: #fff;
+}
+
+#FIELDS_BOX,#Sidebar,#OPTIONS_BOX {
+  display: none;
+  margin-left: 10px;
+}
+
+
+#SelectDiv {
+  float: none;
+}
+</style>
+
+
+<!--START FULL ITEM LIST-->
+<div id="ListShell">
+
+      <!--SELECT DROPDOWN-->
+      <div id="SelectDiv">
+        <select id="SelectDataType">
+          <option  default>Please select a type</option>
+        </select>
+      </div>
+
+      <table id="FullList">
+      <theader>
+      <tr>
+      <td>Title</td>
+      <td>Type</td>
+      <td>Date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      </tr>
+      </theader>
+      {{range $k,$v := .List}}
+        <tr>
+          <td>
+            <a href="/{{$.Globals.AdminSlug}}/data/item/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+          </td>
+          <td class="itemTypeTD">
+          <a href="/{{$v.typeurl}}" target="_blank">{{$v.type}}</a>
+          </td> 
+
+          <td class="itemDateTD">
+          {{$v.date}}
+          </td> 
+
+          <td class="viewItemFullTD">
+            <a href="/{{$v.typeurl}}/{{$v.url}}" target="_blank" class="viewItemFull">View</a>
+          </td>
+
+          <td class="editItemFullTD">
+            <a href="/{{$.Globals.AdminSlug}}/data/item/edit/{{$v.key}}" class="editItemFull">Edit</a>
+          </td>
+
+          <td class="deleteItemFullTD">
+            <a href="/{{$.Globals.AdminSlug}}/data/item/delete/{{$v.key}}" class="deleteItemFull">Delete</a>
+          </td>
+        </tr> 
+      {{end}}
+      </table>
+
+</div>
+
+
+<!--START SECTION-->
+<section id='content'>
+
+  <!--FORM-->
+  <form id="EditForm" action="/admin/data/item/" method="post"> 
+
+
+  <!--PANEL-->
+  <div class="panel">
+   
+
+
+
+
+  <!--PAGEBAR-->
+  <div id="PageBar">
+
+<div id="title_pagebar">
+  <input type="text" placeholder="Enter content title here..." class="control_forms" id="Title_PageBar" name="title">
+</div>
+
+
+
+  <!--DOCUMENT BUTTONS-->
+  <div id="DocBtns">
+  
+      <!--SAVE-->
+      <div id="form_page_savebtn">
+        <input type="submit" value="Save" class="button" title="ctrl+s">
+      </div>
+
+       <!--ADD-->
+      <div id="AddButton">
+        <a href="/{{.Globals.AdminSlug}}/pages/add/">New</a>
+      </div>
+
+  <!--END DOC BTNS-->
+  </div>
+
+
+    
+
+
+  <!--END PAGEBAR-->
+  </div>
+
+<br />
+
+
+
+    <!--ITEM FIELDS-->
+    <details id="FIELDS_BOX" open>
+  
+    <summary>Fields</summary>
+      <div id="ItemFields">        
+        <h3>Select a Type from the above drop down.</h3>
+      </div>
+      </details>
+    <!--END ITEMS FIELDS-->
+
+
+
+
+
+
+
+  <!--SIDEBAR-->
+  <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+ <div class="clear"></div>
+
+
+    <!--OPTIONS-->
+    <details id="OPTIONS_BOX" open>
+    <summary>Options</summary>
+    <div id="OPTIONS_BOX_BG">
+
+               <!--ITEM LINK-->
+          <div id="ItemLinkShell">
+            <a id="ViewItem" href="#" target="_blank">View Item</a>
+          </div>
+
+    <!-- PUBLISH SWITCH -->
+    <div id="form_publish_switch">
+    <label>Publish</label>
+    <label class="switch">
+      <input id="info_publish" name="info_publish" type="checkbox">
+      <div class="slider round"></div>
+    </label>
+    </div>
+
+       <div id="form_page_slug">
+       <label>URL</label>
+       <input id="input_slug" type="input" name="slug" placeholder="enter-your-title-here" class="control_forms"><div id="slugPrefixItem">/</div></input>
+       <br />
+ 
+       </div> 
+      <div id="form_page_desc"><label>Description</label><br/><input type="input" id="info_description" name="info_description" placeholder="Description" class="control_forms" /></div>
+      <div id="form_page_keyw"><label>Keywords</label><br/><input type="input" id="info_keywords" name="info_keywords" placeholder="Keywords" class="control_forms" /></div>
+    </div>
+    </details>
+
+
+    <!--LIST-->
+    <details id="RECENT_BOX" open>
+    <summary>Recent List</summary>
+      <!--LIST-->
+      <div id="BOX_BG">
+      <table id="List">
+      {{range $k,$v := .List}}
+        <tr>
+          <td>
+            <a href="/{{$.Globals.AdminSlug}}/data/item/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+          </td>
+          <td class="deleteItemTD">
+            <a href="/{{$.Globals.AdminSlug}}/data/item/delete/{{$v.key}}" class="deleteItem">x</a>
+          </td>
+        </tr> 
+      {{end}}
+      </table>
+      </div>
+      <!--END LIST-->
+      </details>
+
+  <!--END SIDEBAR-->
+  </div>
+
+
+
+
+      <!--HIDDEN FIELDS-->
+    <input type='hidden' id='fieldNames' name="fieldNames" value='' />
+    <input type='hidden' id='fieldType' name="fieldType" value='' />
+    <input type='hidden' id='fieldDateOrder' name="fieldDateOrder" value='' />
+    <input type='hidden' id='fieldTypeURL' name="fieldTypeUrl" value='' />
+
+
+  <!--END FORM-->
+  </form> 
+
+<br />
+<br />
+
+
+  <!--END PANEl-->
+  </div>
+
+<!--END SECTION-->
+</section>
+
+<!-- Main Quill CDN library 
+<link href="//cdn.quilljs.com/1.0.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.0.6/quill.min.js" type="text/javascript"></script>
+-->
+
+
+
+
+<!--TRIX WYSIWYG
+<link rel="stylesheet" type="text/css" href="/admin/static/dir/trix.css">
+<script type="text/javascript" src="/admin/static/dir/trix.js"></script>
+-->
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+
+
+
+//GLOBAL VARS
+var RowIndex = 0;
+var showHTMLBool = false;
+var quill;
+ 
+  //KEYBOARD SAVE
+  //KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+  key.filter = function(event){
+    var tagName = (event.target || event.srcElement).tagName;
+    key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+    return true;
+  }
+
+   //SAVE PAGE WITH KEYBOARD
+   key('⌘+s, ctrl+s', function(event){ 
+      event.preventDefault();
+      //alert('saving page');
+      var form =  $("#EditForm")[0];
+      //console.log(form.action);
+      submitForm(form.action);
+   });
+
+function listenOnInput(){
+   //EDITING INPUT TITLE
+  $("input[name='title']").on('keyup',function(event){
+    console.log(event);
+
+      //VARS
+      var title = event.target.value;
+      var slug = $("#input_slug")[0];
+
+      //MANIPULATE
+      title = title.trim();
+      title = title.replace(/\s/g,"-");
+      title = title.toLowerCase();
+      /** 
+      // alphabet + numberls + hyphen
+      /^[a-zA-Z0-9- ]*$/  
+      **/
+      //title = title.match(/^[a-zA-Z0-9- ]*$/)
+      //title = title.replace(/[\W]/g, "");
+      title = title.replace(/[^a-zA-Z0-9\-]/gi,"-");
+
+      if(title.slice(-1) == "-"){
+        var length = title.length;
+            length = length -1;
+        title = title.substr(0,length);
+      } 
+
+      //ASSIGN TITLE TO SLUG
+      slug.value = title;
+      //slug.value = "/"+title;
+
+      //DEBUG
+      //console.log(event);
+      //console.log("inserting BR at Char " + end);
+
+  //END EDIT INPUT TITLE
+  });
+
+}
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  //var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+console.log(RowIndex);
+
+  var changedRow = $("#List tbody tr td:first-child a")[RowIndex];
+      changedRow.innerHTML = newTitle;
+  //console.log(changedRow);
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(0);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+        deleteCell.setAttribute("class","deleteItemTD");
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/data/item/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/data/item/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "x";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           
+
+}
+
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+    //GET IDE TEXT
+    //myTextarea.innerHTML = editor.getValue();
+    //myTextarea2.innerHTML = editor2.getValue();
+
+    //SYNC DATE ORDER
+    var dateOrderVal = $("#EditForm input[type='date']");
+    if(dateOrderVal.length !== 0){
+      $("#fieldDateOrder").attr("value", dateOrderVal[0].value);
+    }
+
+    //SYNC WYSIWYG
+    var wysiwygEditor = $(".ql-editor");
+    if(wysiwygEditor.length !== 0){
+      $(".hiddenTextarea")[0].innerHTML = wysiwygEditor[0].innerHTML;
+    }
+
+
+    //DEBUG
+    //console.log($("#EditForm").serialize());
+    //console.log(url);
+    //console.log(dateOrderVal[0].value);
+    //console.log($("#fieldDateOrder"));
+    console.log($(".hiddenTextarea"));
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+
+            //console.log(res);
+            
+            //ALERT
+            //alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+
+
+            } else {
+              updateListItem(res.title);
+            }
+
+            //UPDATE VIEW ITEM LINK
+            var typeURL = document.getElementById('fieldTypeURL');
+            var itemURL = document.getElementById('input_slug');
+
+
+            var viewItemLink = document.getElementById('ViewItem');
+            viewItemLink.href = "/" +typeURL.value +"/"+itemURL.value;
+
+         }
+
+      });
+    
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC SHOW HTML BOX
+function showHTMLBox(){
+
+  var wysiwygBox = $("#editor-container,.ql-toolbar");
+  var hiddenBox = $(".hiddenTextarea");
+  var wysiwygText = $(".ql-editor")[0].innerHTML;
+
+  //HIDE BOX
+  if(showHTMLBool){
+    wysiwygBox.show();
+    hiddenBox.hide();
+    showHTMLBool = false;
+
+  
+  //SHOW BOX  
+  } else {
+
+    hiddenBox[0].innerHTML = wysiwygText;
+
+    wysiwygBox.hide();
+    hiddenBox.show();
+    showHTMLBool = true;
+
+  }
+
+//END FUNC
+}
+
+
+//READY DOC
+$(document).ready(function(){
+
+  //WELCOME
+  console.log('Welcome to the Control Room for: Data Items');
+
+
+  //LOAD DATA TYPES
+  GetDataTypes();
+
+
+
+
+
+//CLICK ADD BUTTON
+$("input [type=file]").on('change',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+    console.log('uploading file...');
+
+          var file = fileInput.files[0];
+      var textType = /text.*/;
+
+      if (file.type.match(textType)) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          console.log('loading uploader....')
+          //fileDisplayArea.innerText = reader.result;
+        }
+
+        reader.readAsText(file);  
+      }
+
+});
+
+  //SELECT CHANGE
+  $("#SelectDataType").change(function(evt){
+    //console.log(e);
+    TypeSelectChanged(evt);
+
+  });
+
+
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+     
+    //PREVENT DEFAULT
+    event.preventDefault();
+    
+    //GRAB URL 
+    var url = event.target.action;
+
+      //DEBUG
+      //console.log($("#EditForm").serialize());
+      //console.log(url);
+
+      //SUBMIT
+      submitForm(url);
+      
+      /*
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+       });
+
+      return false;
+      */
+   });
+
+//FUNC GET DATA TYPES
+function GetDataTypes(){
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:"/admin/data/type/",
+      success:function(results){
+        //console.log(results);
+        LoadTypes(results);
+        //LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END FUNC
+}
+
+//FUNC LOAD DATA TYPES
+function LoadTypes(res){
+
+if(res !== null){
+  $.each(res, function(key, value) { 
+    //console.log(key);
+    //console.log(value.key);
+    //console.log(value.title);
+       $('#SelectDataType').append($("<option value='"+value.key+"'>"+value.title+"</option>")); 
+  });
+//END IF  
+}
+
+//END FUNC
+}
+
+//FUNC SELECT CHANGED
+function TypeSelectChanged(evt){
+
+  var itemKey = evt.target.value;
+
+  
+  var idx = evt.target.selectedIndex;
+  var optionTxt = evt.target[idx].text;
+
+  //DEBUG
+  //console.log(itemKey);
+  //console.log(optionTxt);
+  //console.log(evt);
+  //console.log(evt.target.value);
+
+GetTypeDetails(optionTxt,itemKey,null);
+
+
+
+//END FUNC
+}
+
+
+//FUNC GET TYPE DETAILS
+function GetTypeDetails(txtVal,keyVal,itemResults){
+    $("#fieldType").attr('value',txtVal);
+
+      //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:"/admin/data/type/details/"+keyVal,
+      success:function(results){
+        //console.log(evt);
+        RenderFieldType(results,itemResults);
+
+        //SET HIDDEN VALS
+        $("#fieldTypeURL").attr("value", results[0].typeurl);
+
+        //SET VIEW ITEM LINK ON LOAD
+            var viewItemLink = document.getElementById('ViewItem');
+            viewItemLink.href = "/" + results[0].typeurl +"/"+ itemResults.info.url;
+
+        //LoadTypes(results);
+        //LoadItem(results);          
+      }
+    //END AJAX 
+    });
+//DISPLAY PAGEBAR
+$("#PageBar").show();
+
+//END FUNC    
+}
+
+
+//FUNC RENDER FIELD TYPE
+function RenderFieldType(res,itemRes){
+
+  //console.log(res);
+  //var appendSubmit = "<input type='submit' value='Submit' />";
+  var appendFieldNames = [];
+
+
+  $("#ItemFields").empty();
+
+  for(var i=0; i< res[0].fields.length; i++){
+      GenField(res[0].fields[i]);  
+      appendFieldNames.push(res[0].fields[i].Name.toLowerCase());
+  }
+
+
+  //$("#ItemFields").append(appendSubmit);
+  $("#fieldNames").attr("value", appendFieldNames);
+
+  if(itemRes !== null){
+    SyncDataItem(itemRes);
+  }
+
+  //SET LISTENER ON TITLE INPUT
+  listenOnInput();
+
+
+//END FUNC 
+}
+
+//FUNC GENERATE FIELD
+function GenField(field){
+
+  //console.log(field.Name);
+  //console.log(field.UI);
+  
+  var inputText = "<input type='text' name='"+ field.Name.toLowerCase() +"' />";
+  var inputTextArea = "<textarea name='"+ field.Name.toLowerCase() +"'></textarea>";
+  var inputDate = "<input type='date' name='"+ field.Name.toLowerCase() +"'/>";
+
+  var inputTel = "<input type='tel' name='"+ field.Name.toLowerCase() +"' />";
+  var inputTime = "<input type='time' name='"+ field.Name.toLowerCase() +"' />";
+  var inputURL = "<input type='url' name='"+ field.Name.toLowerCase() +"' />";
+  //var inputQuill = "<div class='wysiwygEditor'></div><textarea name='"+ field.Name.toLowerCase() +"' class='hiddenTextarea'></textarea><div id='showHTML'><input id='showHTMLCheckBox' onClick='showHTMLBox()' type='checkbox' /><label for='showHTMLCheckBox'>Show HTML</label></div></div>";
+  
+  var inputQuill0 = "<div id='showHTML'><input id='showHTMLCheckBox' onClick='showHTMLBox()' type='checkbox' /><label for='showHTMLCheckBox'>Show HTML</label></div>";
+  var inputQuill1 = "<div id='showHTML'><label class='switch'><input id='showHTMLCheckBox' onClick='showHTMLBox()' type='checkbox'><div class='slider round'></div></label><label for='showHTMLCheckBox'></label></div>";
+
+  var inputQuill2 = "<div class='wysiwygShell'><div id='editor-container' class='wysiwygEditor'></div><textarea name='"+ field.Name.toLowerCase() +"' class='hiddenTextarea'></textarea></div>";
+
+  var inputQuill = inputQuill1 + inputQuill2;
+
+
+  var inputImageText = "<input type='text' placeholder='filenames.jpg...' name='"+ field.Name.toLowerCase() +"' />";
+  var inputFile = "<input type='file' name='uploadInput_"+ field.Name.toLowerCase() +"'/>";
+  var inputFileProg = '<progress id="ProgressBar" value="0" max="100"></progress>';
+  var inputImageHolder = "<div id='ImageUploadHolder'></div>";
+  
+
+  var appendInput;
+  var appendLabel = "<label>"+field.Name+"</label>";
+  var appendBreak = "<br><br>";
+
+  switch(field.UI){
+
+    case 'text':
+      appendInput = inputText;
+      break;
+    case 'tel':
+      appendInput = inputTel;
+      break;
+    case 'time':
+      appendInput = inputTime;
+      break;
+    case 'url':
+      appendInput = inputURL;
+      break;
+
+    case 'textarea':
+      appendInput = inputTextArea;
+      //appendInput = inputQuill;
+      break;
+    case 'wysiwyg':
+      appendInput = inputQuill;
+     // startWYSIWYG();
+      break;
+    case 'image':
+      appendInput = inputImageText;
+
+      break;
+
+    case 'date':
+      appendInput = inputDate;
+      break;
+
+    default:
+      appendInput = "";
+      break;
+  }
+
+//CHECK FOR TITLE
+if(field.Name == 'Title'){
+  //NO APPEND
+} else {
+    //APPEND FIELD
+  $("#ItemFields").append(appendLabel+appendInput + appendBreak);
+}
+
+
+
+  //ADD IMAGE UPLOADER
+  //if(field.UI == 'image'){
+    //$("#ItemFields").append(inputFile);
+    //$("#ItemFields").append(inputFileProg);
+
+  //}
+
+    if(field.UI == 'wysiwyg'){
+      startWYSIWYG();
+    }
+
+//       <input id="input_slug" type="input" name="slug" placeholder="/enter-your-title-here" class="control_forms" />
+
+
+    //HIDE LIST/DISPLAY FIELDS
+    $("#ListShell").hide();
+    $("#FIELDS_BOX").show();
+    $("#OPTIONS_BOX").show();
+    $("#Sidebar").show();
+
+//END FUNC
+}
+
+
+
+
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+
+      //HIDE FIELDS/DISPLAY LIST
+      $("#ListShell").show();
+      $("#FIELDS_BOX").hide();
+      $("#OPTIONS_BOX").hide();
+      $("#Sidebar").hide();
+      $("#PageBar").hide();
+
+});
+
+//CLICK LIST BUTTONS
+$("#List,#FullList").on('click','tr td a.listItem,a.editItemFull',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    //RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    RowIndex = event.target.parentElement.parentElement.rowIndex;
+    
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+    //console.log(url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        //console.log(results);
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+});
+
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+
+  //END CLICK
+  }); 
+
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      //form.attr('action','/{{.Globals.AdminSlug}}/data/item/edit/');
+      form.attr('action','/{{.Globals.AdminSlug}}/data/item/type/');
+      form[0].reset();
+
+      $("textarea").val('');
+      $("#ItemFields").empty();
+
+
+  //var textareaItem = $("#EditForm textarea[name='content']");
+      //textareaItem[0].innerHTML = "";
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+
+console.log("RESULTS BELOW");
+console.log(results);
+
+//HIDE LIST/DISPLAY FIELDS
+//$("#ListShell").hide();
+//$("#FIELDS_BOX").show();
+//$("#Sidebar").show();
+
+
+var itemType = results.info.type.toLowerCase();
+var itemLink = results.info.url;
+var itemTypeURL = results.info.typeurl;
+var itemPublishBool = results.info.published;
+
+
+var myInfoPublish = document.getElementById("info_publish");
+
+if(itemPublishBool == "True"){
+  myInfoPublish.setAttribute('checked',true);
+} else {
+  console.log("this should be false");
+    myInfoPublish.removeAttribute('checked');
+
+}
+
+var myInfoDescription = document.getElementById("info_description");
+var myInfoKeywords = document.getElementById("info_keywords");
+
+
+var myDataTypeSlug = document.getElementById("input_slug");
+var myViewItemLink = document.getElementById("ViewItem");
+
+myDataTypeSlug.value = itemLink;
+myViewItemLink.href = "/"+itemTypeURL+"/"+itemLink;
+
+myInfoDescription.value = results.info.description;
+myInfoKeywords.value = results.info.keywords;
+
+
+
+  var selectDD = $('#SelectDataType');
+  var selectVal = "";
+  var selectTxt = "";
+
+    //console.log(selectDD);
+
+    //FOR OPTIONS
+    for(var i in selectDD[0].options){
+      if(String(selectDD[0].options[i].text).toUpperCase() == results.info.type){
+          //console.log('match');
+          selectDD[0].options[i].selected = true;
+          selectVal = selectDD[0].options[i].value;
+          selectTxt = selectDD[0].options[i].text;
+      }
+    //END FOR  
+    }
+    
+    //RENDER DATA TYPE INPUTS
+   GetTypeDetails(selectTxt,selectVal,results);
+
+  //END FUNC
+  }
+
+  //FUNC SYNC DATA AND FIELDS
+  function SyncDataItem(results){
+  //$.when(     GetTypeDetails(selectTxt,selectVal) ).done(function() {
+
+
+    //startWYSIWYG();
+
+
+    //FILL IN RESULTS
+    var formItem = $("#EditForm :input");
+    //console.log(form);
+
+    //FOR 1
+    //for(var f in formItem){
+    for(var f=0; f < formItem.length; f++){
+      
+      //IF UNDEFINED
+      //if(formItem[f] !== undefined){
+
+        //FOR 2
+        for(var k in results.content){
+
+
+
+          //IF MATCH
+          if( k == formItem[f].name){
+
+            //if(formItem[f].name == 'Title'){
+             // $("#Title_PageBar").value = results.content[k]; 
+            //}
+
+            //DEBUG
+            //console.log('MATCH');
+            //console.log("k = " + k);
+            //console.log( formItem[f].name);
+
+            if(formItem[f].type == "text" || formItem[f].type == "date"){
+              formItem[f].value = results.content[k];              
+
+            } else if(formItem[f].type == "textarea"){
+              
+              formItem[f].innerHTML = results.content[k];
+              quill.clipboard.dangerouslyPasteHTML(results.content[k]);
+                           // quill.setText(results.content[k]);
+
+            
+            //} else if (formItem[f].type == "wysiwyg"){       
+
+              //quill.insertText(0, results.content[k], 'normal', true);
+
+            } else if(formItem[f].type == "file"){
+              //console.log('file type coming soon');
+            } else {
+              formItem[f].value = results.content[k];
+             // console.log('nodda here');
+            }
+
+          //END IF MATCH
+          }
+
+          /*
+          if(String(form[f].name).toUpperCase() == String(k).toUpperCase()){
+              console.log(String(form[f].name).toUpperCase());
+              //console.log(results.content[k])
+              console.log(String(k).toUpperCase());
+          }*/
+
+
+        //END FOR 2
+        }
+
+      //END IF UNDEFINED
+     // }
+
+    //END FOR 1
+    }
+
+ // }); 
+
+
+
+
+
+  //END FUNC
+  }
+
+
+function startWYSIWYG(){
+  //WYSIWYG
+  quill = new Quill('#editor-container', {
+  modules: {
+    toolbar: [
+      //[{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline','strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'align': [] }]
+
+      ]
+    },
+    placeholder: 'Be fucking epic...',
+    theme: 'snow' // or 'bubble'
+  });
+}  
+
+//END DOC
+});
+
+</script>

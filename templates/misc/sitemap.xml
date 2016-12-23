@@ -1,0 +1,14 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">  
+  <url>
+    <loc>http://{{.Data.host}}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.00</priority>
+  </url>
+  {{range $k,$v := .Pages }}
+  <url>
+    <loc>http://{{$.Data.host}}{{$v}}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+    {{end}}
+</urlset>

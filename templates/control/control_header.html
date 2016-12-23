@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+  <title>{{.title}}</title>
+  
+
+  <!--META-->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name='description' content='{{.description}}'>
+  <meta name='keywords' content='{{.keywords}}'>
+  
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/alertify.css' />
+  <!--<link rel='stylesheet' type='text/css' href='/admin/static/dir/common.css' />-->
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin.css' />
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin_desktop.css' />
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin_mobile.css' />
+
+
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/codemirror.css' />
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/spinners.css' />
+  <link rel='icon' href='/favicon.ico' type='image/x-icon' />
+
+  {{if .css}}<link rel='stylesheet' type='text/css' href='{{.css}}' />{{end}}
+
+  <script type='text/javascript'  src='/admin/static/dir/jquery.js'></script>
+  <script type='text/javascript'  src='/admin/static/dir/alertify.js'></script>
+  <script type='text/javascript'  src='/admin/static/dir/keymaster.js'></script>
+  <script type='text/javascript'  src='/admin/static/dir/codemirror.js'></script>
+  <script type='text/javascript'  src='/admin/static/dir/mode/xml/xml.js'></script>
+  
+  {{if .js}}<script type='text/javascript' src='{{.js}}'></script>{{end}}
+
+</head>
+
+
+<body>
+<!--CONTAINER-->
+<div class="container">
+
+
+    <!--NAV-->
+    <ul class="topnav">
+
+      <!--SECTION DATA-->
+      <li>
+          <div class="sub_shell">
+          <a href="#" onclick="mySubMenu()" class="sub_link">Data</a>
+   
+          <ul id="menu_data" class="sub_menu sm1">
+
+            <li><a class="sub_item" href='/{{.AdminSlug}}/pages/list'>Pages </a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/data/item'>Content</a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/data/type'>Types</a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/files/'>Images</a></li>
+
+          </ul>
+        </div>
+      </li>
+
+      <!--SECTION THEMES-->
+      <li>
+          <div class="sub_shell">
+          <a href="#" onclick="mySubMenu2()" class="sub_link">Themes</a>
+   
+          <ul id="menu_themes" class="sub_menu sm2">
+ 
+            <li><a class="sub_item" href='/{{.AdminSlug}}/core/'>Core</a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/style/'>Styles</a></li>
+
+          </ul>
+        </div>
+      </li>
+
+      <!--SECTION UTILS-->
+      <li>
+          <div class="sub_shell">
+          <a href="#" onclick="mySubMenu3()" class="sub_link">Utils</a>
+   
+          <ul id="menu_utils" class="sub_menu sm3">
+            <li><a class="sub_item" href='/{{.AdminSlug}}/settings'>Settings</a></li>
+            <li><a class="sub_item" href='/' target="_blank" id="SM_ViewSite">View Site</a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/cache/flush' id="Flush">Flush Cache</a></li>
+            <li><a class="sub_item" href='{{.logout}}' id="SM_LogOut">Logout</a></li>
+            <li><a class="sub_item" href='http://appengine.google.com' target="_blank">App Engine</a></li>
+            <!--<li><a class="sub_item" href='http://console.developers.google.com' target="_blank">Dev Console</a></li>-->
+          </ul>
+        </div>
+      </li>
+      <li><a href='/{{.AdminSlug}}/stats'>Stats</a></li>
+
+      <!--OTHER TOP LEVEL LINKS
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact Us</a></li>-->
+    </ul>
+
+
+
+<!--SHELL-->
+<div class="shell">
+
+    <!--MENU OVERLAY-->
+     <div class="menu_overlay" onclick="myMenu()"></div>
+
+<!--HEADER-->
+<div id="header">
+
+  <!--MENU-->
+  <div id="menu">
+  
+      <!--MENU ICON-->
+      <div class="icon">
+        <a href="javascript:void(0);" onclick="myMenu()">☰</a>
+      </div>
+  </div> 
+
+    <!--TOP MENU-->
+  <div id="TopMenu">
+
+
+      <a href='/' target="_blank">View Site</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+      <a href='{{.logout}}'>Logout</a>
+
+    
+  </div>
+  
+
+<!--END HEADER-->
+</div>
+
+
+<!--CONTENT-->
+<div id="content">
+
+
+

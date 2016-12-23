@@ -1,0 +1,611 @@
+<!--START SECTION-->
+<section id='contentFiles'>
+
+
+ <!--LIST-->
+<div class="panel">
+
+<!--TITLE
+<h2>{{.Data.title}}</h2>
+-->
+
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+     <!--SERVICE CHECKS-->
+     <details open>
+     <summary>Upload Files</summary>
+
+        <!--UPLOAD SHELL-->
+        <div id="UploadShell">
+
+        <!--FORM-->
+        <form id="EditForm" action="" method="post" enctype="multipart/form-data">
+          
+          <!--UPLOAD INPUT-->
+          <input id="InputFileUpload" type="file" name="files" multiple="multiple">
+          <br>
+          <progress id="ProgressBar" value="0" max="100">Uploading image...</progress>
+          <div id="ProcessImgMsg"><div class="loader"></div>Loading image...</div>
+          <br>
+          <!--SUBMIT BTN-->
+          <input id="SubmitBtn" type="submit" name="submit" value="Upload">
+
+        <!--END FORM-->
+        </form>
+
+        <!--END UPLOAD SHELL-->
+        </div>
+    </details>
+
+
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+
+
+
+
+<!--RECENT IMAGE LIST-->
+<div id="ImgList">
+
+   
+    {{range $k,$v := .List}}
+      <div id="img_{{$k}}" class="recentImg">
+          <div class="thumbShell">
+            <a href="/images/{{$v.title}}" target="_blank" class="listImgItem lightbox">
+            <img class="thumb" src="/images/mobile/{{$v.title}}" />
+            </a>
+          </div>
+          
+          <!--VIEW FULL -->
+          <a href="/images/{{$v.title}}" target="_blank"  class="viewFull">^</a>
+
+          <!--DELETE BTN -->
+          <a href="/{{$.Globals.AdminSlug}}/files/delete/{{$v.key}}" data-name="{{$v.title}}" data-num="{{$k}}" class="deleteItem">x</a>
+          
+      </div>
+        
+    {{end}}
+   
+<!--END IMAGE LIST-->
+</div>
+
+<!--END SECTION-->
+</section>
+
+
+
+<!--CSS-->
+<style>
+#ProcessImgMsg {
+  text-align: center;
+  font-family: sans-serif,arial;
+  font-variant: small-caps;
+  font-size: 14px;
+  color: #555;
+}
+
+#lightbox {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('/admin/static/dir/bg_clear_black.png');
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+  display: none;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+
+#lightbox img {
+  height: 90%;
+  width: auto;
+  max-width: 1000px;
+  margin: 2% auto;
+
+}
+
+img#lb_img {
+  border: 0px solid #fff;
+}
+
+  #shell {
+    margin-top: 0px;
+    margin-left: 280px;
+  }
+
+#InputFileUpload {
+  cursor: pointer;
+}
+
+#ProgressBar {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  display: none;
+}
+
+
+#UploadShell {
+  width: 90%;
+  height: 490px;
+  background: #ffffcc;
+  padding: 3%;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  float: left;
+  margin-top: 0px;
+  margin-left: 5px;
+}
+
+#ImgList {
+  width: 900px;
+  min-height: 490px;
+  background: transparent;
+  border-left: 0px solid #ccc;
+  float: left;
+  padding-left: 30px;
+  margin-left: 30px;
+}
+
+
+.panel {
+  width: 100%;
+  padding: 20px;
+}
+.recentImg {
+  width: 100px;
+  height: 120px;
+  border: 1px solid #999;
+  float: left;
+  margin: 0px 20px 20px 0px;
+  padding: 10px;
+  text-align: right;
+  border-radius: 3px;
+  background: #fff;
+
+}
+  .thumbShell {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    background: #333;
+  }
+  .thumb {
+    width: 120%;
+  }
+  section#contentFiles {
+    width: 100%;
+  }
+
+
+#SubmitBtn  {
+    width: 100%;
+    padding: 10px;
+    font: 10px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 4px;
+  margin-left: 0px;
+    margin-top: 10px;
+    display: none;
+  text-transform: uppercase;
+}
+#SubmitBtn:hover {
+  background: #999;
+  cursor: pointer;
+
+}
+
+#ProcessImgMsg {
+  display: none;
+}
+
+.viewFull {
+  float: left;
+  padding-top: 1px;
+  font-size: 18px;
+}
+
+</style>
+
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+
+
+
+//READY DOC
+$(document).ready(function(){
+
+
+  console.log('Welcome to the Control Room');
+
+
+    $("#InputFileUpload").change(function(event){
+      console.log(event);
+
+      var files = event.target.files || e.dataTransfer.files;
+
+
+      for(var i in files){
+       // formdata.append("images[]", files[i]);
+
+      }
+
+      $("#SubmitBtn").show();
+
+      console.log(files);
+      //console.log(formdata);
+
+    //END CHANGE
+    });
+
+
+
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+      
+      event.preventDefault();
+
+            //AJAX
+        $.ajax({
+           type: "GET",
+           url: "upload",
+           success: function(res){
+             //GRAB URL 
+             var url = res.uploadURL;
+
+            $("#ProgressBar").show();
+
+              //SUBMIT
+              submitForm(url);
+           }
+
+        //END AJAX
+        });
+
+    //GRAB URL 
+   //var url = event.target.action;
+
+      //DEBUG
+      //console.log($("#EditForm").serialize());
+      //console.log(url);
+
+      //SUBMIT
+     //submitForm(url);
+
+    //END CLICK
+   });
+
+
+
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+  //FORM DATA OBJECT
+  var formdata = new FormData();
+
+
+  console.log($("#EditForm").serialize());
+  console.log(url);
+
+  $("#SubmitBtn").attr('disabled','true');
+
+//REFERENCES
+//https://developer.mozilla.org/en-US/docs/Web/API/FormData
+//http://www.sitepoint.com/html5-javascript-file-upload-progress-bar/
+//http://code.tutsplus.com/tutorials/uploading-files-with-ajax--net-21077
+//https://gist.github.com/HenrikJoreteg/2502497
+
+//var formdata = new FormData();
+
+var fileSubmit = $('#InputFileUpload');
+var FS = fileSubmit[0].form[0].files;
+
+/*
+var filereader = new FileReader();
+    filereader.onloadend = function(e) { 
+      console.log(e.target.result);
+    };
+
+  filereader.readAsDataURL(FS);
+*/
+
+for(var i in fileSubmit[0].form[0].files){
+  //formdata.append('file-'+i, FS[i]);
+  formdata.append("images[]", fileSubmit[0].form[0].files[i]);
+  console.log(fileSubmit[0].form[0].files[i]);
+}
+
+
+console.log(formdata);
+
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         //contentType: "image/png",//"application/json; charset=utf-8",//"application/octet-stream",
+         url: url,
+        // data: $("#EditForm").serialize(),
+
+          data: formdata,
+          cache: false,
+          contentType: false,
+          processData: false,
+          xhr: function(){
+              
+
+                var xhr = $.ajaxSettings.xhr();
+                    xhr.upload.onprogress = function(evt){ 
+                      var PercentFin = Math.floor(evt.loaded / evt.total * 100);
+                      $("#ProgressBar")[0].value = PercentFin;
+
+                        if(PercentFin >= 99){
+
+                         $("#ProgressBar").hide();
+
+                          $("#ProcessImgMsg").show();
+                        }
+
+                    };
+
+                    return xhr;
+          },
+          /*xhrFields: {
+            // add listener to XMLHTTPRequest object directly for progress (jquery doesn't have this yet)
+            onprogress: function (progress) {
+              // calculate upload progress
+              console.log(progress);
+              var percentage = Math.floor((progress.loaded / progress.total) * 100);
+              // log upload progress to console
+              console.log('progress', percentage);
+              $("#ProgressBar")[0].value = percentage;
+              if (percentage === 100) {
+                console.log('DONE!');
+              }
+            }
+          },*/
+         success: function(res){
+
+            console.log("Success returning from server!");
+            console.log("Response below:");
+            console.log(res);
+            
+        
+
+              //RESET
+              $("#SubmitBtn").removeAttr('disabled');
+              $("#EditForm")[0].reset();
+              $("#ProgressBar")[0].value = "0";
+
+                    $("#SubmitBtn").hide();
+
+
+            LoadImages(res);
+            /*
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }*/
+         }
+
+      });
+    
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC
+function LoadImages(res){
+
+  console.log("Loading Images...");
+  console.log(res);
+
+
+
+  //IF SOMETHING
+  if(res !== undefined){
+
+
+  var imgs = res.files;
+
+
+
+    //CUT NAMES OUT OF STRING
+    var imgNames =  imgs.split("|");
+    var deleteURL = res.imgKey;
+    var adminSlug = res.adminSlug;
+    console.log(imgNames);
+
+
+
+    //FOR IMGS
+    for(var i in imgNames){
+
+      if(imgNames[i] != ""){
+
+        var imgCount = $(".recentImg").length;
+        var imgNum = imgCount;
+
+        console.log(imgNames[i]);
+        console.log("creating image...");
+
+        var imgHTML = '<div id="img_'+imgNum+'" class="recentImg"><div class="thumbShell">';
+            imgHTML += '<a href="/images/'+imgNames[i] +'" target="_blank" class="listImgItem lightbox">';
+            imgHTML += ' <img class="thumb" src="/images/mobile/' + imgNames[i]+'" />';
+            imgHTML += '</a></div>';
+            imgHTML += '<a href="/images/'+ imgNames[i] +'" target="_blank"  class="viewFull">^</a>';
+            imgHTML += ' <a href="/'+adminSlug+'/files/delete/'+ deleteURL +'" data-name="' + imgNames[i]+'" data-num="'+imgNum+'" class="deleteItem">x</a></div>';
+
+          //PREPREND HTML
+          $("#ImgList").prepend(imgHTML);
+
+
+          //$("#EditForm").attr('action',res.uploadURL); //HANDLED WITH OWN URL
+
+          //REACTIVATE SCRIPTS
+          onDelete();
+          onLightBox();
+
+          //HIDE IMG PROCESS MSG
+          $("#ProcessImgMsg").hide();
+
+
+           //ALERT
+          alertify.success(res.message);
+
+        }
+      
+      //END FOR
+      }
+
+  //END UNDEFINED
+  } else {
+
+      //ALERT
+    alertify.error("image file not ready for display...");
+    console.log("image was undefined");
+
+
+
+  }
+
+//END FUNC
+}
+
+
+function onDelete(){
+
+  //CLICK DELETE BUTTON
+  $("a.deleteItem").on('click',function(event){
+      
+      event.preventDefault();
+
+      //GRAB URL
+      var url = event.target.href;
+      var imageName = event.target.dataset.name;
+      var imgID = event.target.dataset.num;
+
+
+
+      //GRAB ROW INDEX
+      //var index = Number(event.target.parentNode.parentNode.rowIndex);
+      
+      //DEBUG
+      console.log(url);
+      console.log(imageName);
+      console.log(imgID);
+      // console.log($(event.target));
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: {"imageName":imageName},
+           success: function(res){
+              
+              //RESET FORM              
+              //ResetForm(); 
+              
+              //DELETE ROW
+              //$("#List")[0].deleteRow(index);
+               $("#img_"+imgID).hide();
+
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+    //END CLICK
+   });
+
+//END FUNC
+}
+
+
+//FUNC LIGHTBOX
+function onLightBox(){
+  
+  //LIGHTBOX CLICK
+  $(".lightbox").on('click',function(event){
+
+
+        //PREVENT DEFAULT
+        event.preventDefault();
+
+        $("#lb_img").attr('src',"");
+
+
+        var imgURL = event.currentTarget.href;
+        var imgW = event.target.clientWidth;
+        var imgH = event.target.clientHeight;
+
+
+        if(imgW > imgH) {
+          $("#lb_img").css('height','auto').css('paddingTop','20px');
+        } else {
+          $("#lb_img").css('height','90%').css('paddingTop','0px');;
+
+        }
+
+
+        //DEBUG
+        console.log(event);
+        console.log(imgURL);
+
+        $("#lb_img").attr('src',imgURL);
+
+        $("#lightbox").show();
+  });
+
+}
+
+//ACTIVATE SCRIPTS
+onDelete();
+onLightBox();
+
+
+//END DOC
+});
+</script>

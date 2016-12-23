@@ -1,0 +1,227 @@
+
+/*************************************************************************************/
+/*****************************START MOBILE****************************/
+/************************************************************************************/
+
+@media screen and (max-width:887px) {
+
+
+#content {
+  padding: 20px;
+  margin-top: 60px;
+}
+
+.container {
+    overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  background: 
+}
+
+
+#header {
+  width: 100%;
+  position: fixed;
+  top: 0px;
+}
+
+
+  #menu {
+    background: #fff; 
+    width: 100%;
+    height: 65px;
+    padding: 0px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 100;
+
+  }
+
+  .topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0px 0px 0px 0px;
+    overflow: hidden;
+    background-color: #000;
+    width: 300px;
+    height: 100vh;
+    margin-left: -300px;
+    display: block;
+    transition: margin 0.25s;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+
+  ul.topnav li {
+
+
+  }
+
+  ul.topnav li a {
+
+    color: #333;
+    text-align: center;
+    padding: 22px 25px;
+    text-decoration: none;
+
+    font-size: 17px;
+
+  }
+
+
+
+
+
+  #menu div.icon {
+    float: right;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+  }
+   #menu div.icon a {
+        text-decoration: none;
+    font-size: 24px;
+    padding: 15px 18px;
+    display: block;
+    height: 40px;
+    width: 40px;
+        display: inline-block;
+    color: #333;
+    text-align: center;
+  }
+
+
+.shell,.menu_overlay {
+  width: 100%;
+      position: absolute;
+    left: 0vw;
+      transition: left 0.25s;
+}
+
+/***************************RESPONSIVE***********************/
+
+.container.responsive {
+  overflow-x: hidden;
+ overflow-y: hidden;
+ position: fixed;
+ left: 0px;
+ top: 0px;
+}
+
+  .topnav.responsive {
+    position: fixed;
+    width: 78vw;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: #000;
+    display: block;
+    margin-left: 0px;
+    overflow-y: auto;
+  }
+
+/*
+  ul.topnav.responsive li.icon {
+    width: 300px;
+    background: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+  } */
+
+  ul.topnav.responsive li {
+    width: 100%;
+
+  }
+
+  ul.topnav.responsive li a {
+    display: block;
+    text-align: left;
+    background-color: #333;
+    color: #ccc;
+    border-bottom: 1px solid #555;
+    width: 100%;
+  }
+
+/*
+  ul.topnav.responsive li.icon a {
+        width: 40px;
+    text-align: center;
+  }*/
+
+  ul.topnav.responsive li a:hover {
+   color: #F7CF49
+  }
+
+
+  .shell.responsive {
+    position: absolute;
+    left: 78vw;
+    top: 0px;
+    width: 100%;
+
+  }
+
+  .menu_overlay.responsive {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 78vw;
+    background: #000;
+    opacity: 0.4;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+
+  /*********SUB MENU**********/
+ ul.sub_menu {
+  width: 100%;
+  height: auto;
+  background-color: #555;
+  display: none;
+ }
+
+  ul.sub_menu li a {
+    padding: 10px;
+    margin: 0px;
+      background: #555;
+}
+
+  ul.sub_menu li {
+    width: 100%; 
+    margin: 0px;
+
+  }
+
+  ul.topnav li:hover ul.sub_menu.open  {
+
+      display: block;
+     
+  }
+
+  ul.topnav li ul.sub_menu  {
+
+      display: none;
+     
+  }
+
+  a.sub_item {
+    display: block;
+    width: 100%;
+    height: 20px;
+          background: #555;
+  }
+
+/*END MOBILE*/
+}

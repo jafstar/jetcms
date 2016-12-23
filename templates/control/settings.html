@@ -1,0 +1,612 @@
+<!--START SECTION-->
+<section id='content' class="settings">
+
+
+<br><br>
+
+
+
+
+<!--EDIT-->
+<div class="panel"> </div>
+
+<!--FORM-->
+  <form action="/{{.Globals.AdminSlug}}/settings/" id="EditForm" method="post" class="control_forms">
+
+<!--PAGEBAR-->
+<div id="PageBar">
+
+<!--GUTTER-->
+<div id="PageBarGutter"></div>
+
+
+    
+
+<!--DOCUMENT BUTTONS-->
+<div id="DocBtns">
+    <!--SAVE-->
+    <div id="form_page_savebtn"><input type="submit" value="Save" class="button" title="ctrl+s"></div>
+
+          <!--SUBMIT BUTTON
+    <div>
+      <input id="submitBtn" type="submit" value="Submit" class="submit_button">
+    </div>
+
+    <div><input id="submitBtn" type="submit" value="Save" class="button" title="ctrl+s"></div>
+-->
+
+<!--END DOC BTNS-->
+</div>
+
+<!--END PAGEBAR-->
+</div>
+
+    
+    {{range $k,$v := .List}}
+
+<div id="buttons">
+    <!--    <a id="btn1" href="#tab1">Site</a>
+    <a id="btn2" href="#tab2">Cache</a>
+    <a id="btn3" href="#tab3">Email</a>
+    <a id="btn4" href="#tab4">Images</a>
+<a id="btn5" href="#tab5">Status</a>-->
+
+
+</div>
+
+    <div id="tabs">
+
+      <!--TAB1-->
+      <div class="tab" id="tab1">  </div>
+   <!--TAB2-->
+      <div class="tab" id="tab2"></div>
+          <!--TAB3-->
+      <div class="tab" id="tab3">  </div>
+
+         <!--TAB4-->
+      <div class="tab" id="tab4"> </div>
+          <!--END TABS--> 
+    </div>
+
+<div id="settings_panel">
+          <h3 class="formTitle">Site Settings</h3>
+          <label>Site Closed</label>
+          <br/>
+          <input type="radio" name="site_closed" class="control_forms"  value="online" {{if eq $v.SiteClosed "online" }}checked{{end}}/><span class="radio_txt">Online</span>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <input type="radio" name="site_closed" class="control_forms"  value="offline"  {{if eq $v.SiteClosed "offline"}}checked{{end}}/><span class="radio_txt">Offline</span>
+          <br>
+          <br>
+          <div><label>Site Title</label><br/><input type="input" name="site_title" placeholder="Site Title" value="{{$v.SiteTitle}}" class="control_forms" /></div>
+          <br>
+          <div><label>Google Analytics</label><br/><input type="input" name="site_analytics" placeholder="UA-1234-0" value="{{$v.SiteAnalytics}}" class="control_forms" /></div>
+          <br>
+          <div><label>Soon URL</label><br/><input type="input" name="soon_url" placeholder="Soon URL" value="{{$v.SoonURL}}" class="control_forms" /></div>
+          <br>
+
+    
+
+   
+          <h3 class="formTitle">Cache Settings</h3>
+          <div><label>Cache Control</label><br/><input type="input" name="cache_control" placeholder="Cache Control" value="{{$v.CacheControl}}" class="control_forms" /></div>
+          <br>
+          <div><label>Cache Days</label><br/><input type="input" name="cache_days" placeholder="Cache Days" value="{{$v.CacheDays}}" class="control_forms" /></div>
+          <br>
+          <div><label>Cache Months</label><br/><input type="input" name="cache_months" placeholder="Cache Months" value="{{$v.CacheMonths}}" class="control_forms" /></div>
+          <br>
+      <!--
+          <h3 class="formTitle">Homepage Settings</h3>
+          <div><label>Home Title</label><br/><input type="input" name="home_title" placeholder="Home Title" value="{{$v.HomeTitle}}" class="control_forms" /></div>
+          <br>
+          <div><label>Home Description</label><br/><input type="input" name="home_desc" placeholder="Home Description" value="{{$v.HomeDesc}}" class="control_forms" /></div>
+          <br>
+          <div><label>Home KeyWords</label><br/><input type="input" name="home_keyw" placeholder="Home KeyWords" value="{{$v.HomeKeyW}}" class="control_forms" /></div>
+          <br>-->
+      
+
+   
+
+  
+          <h3>Email Settings</h3>
+          <div><label>Admin Email</label><br/><input type="input" name="admin_email" placeholder="Admin Email" value="{{$v.AdminEmail}}" class="control_forms" /></div>
+          <br>
+          <div><label>From Email</label><br/><input type="input" name="from_email" placeholder="From Email" value="{{$v.FromEmail}}" class="control_forms" /></div>
+          <br>
+          <div><label>To Email</label><br/><input type="input" name="to_email" placeholder="To Email" value="{{$v.ToEmail}}" class="control_forms" /></div>
+          
+    
+
+
+          <h3 class="formTitle">Images</h3>
+          <p>Coming Soon!</p>
+     
+
+   <!--TAB5
+      <div class="tab" id="tab5">
+          <h3 class="formTitle">Service Checks</h3>
+
+
+          <ul id="ServiceChecks">
+            <li class="{{$v.checkDataRead}}"><span>Database Read</span></li>
+            <li class="{{$v.checkDataWrite}}"><span>Database Write</span></li>
+            <li class="{{$v.checkMail}}"><span>Mail</span></li>
+            <li class="{{$v.checkCache}}"><span>Memcache</span></li>
+            <li class="{{$v.checkBlob}}"><span>Blobstore</span></li>
+          </ul>
+
+          <br />
+
+
+          <h3 class="formTitle">Server Info</h3>
+            <span><b>Data Center:</b> {{$v.dataCenter}}</span>
+            <br />
+            <span><b>Server:</b> {{$v.serverSoftware}}</span>
+      </div>-->
+    
+    <br>
+    <input type="hidden" name="token" value="{{/*.token*/}}" />
+
+    <!--
+    <div><input id="submitBtn" type="submit" value="Save" class="button" title="ctrl+s"></div>
+    -->
+
+    <!--END SETTINGS PANEL-->
+</div>
+
+
+    {{end}}
+   
+    
+
+
+  </form>
+
+
+
+<br />
+<br />
+
+
+
+
+<!--END SECTION-->
+</section>
+
+<!--STYLES-->
+<style>
+
+/*
+  #submitBtn {
+z-index: 2;
+position: absolute;
+bottom: 20px;
+left: 44px;
+    padding: 10px 40px;
+    font: 14px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+input#submitBtn:hover {
+  background: #999;
+  cursor: pointer;
+
+}
+*/
+
+#settings_panel {
+width: 500px;
+background: #dcdcdc;
+margin:0px auto;
+margin-top: 60px;
+}
+
+#tabs input[type='input'] {
+    width: 90%;
+  padding: 8px 4px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+  display: none;
+    width: 600px;
+  height: 350px;
+    background: #f00;
+    position: absolute;
+    top: 148px;
+    left: 50%;
+    margin-left: -381px;
+}
+
+.tab {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    background: #ccc;
+      padding: 20px 50px;
+
+}
+
+#buttons {
+  width: 600px;
+  top: 120px;
+      position: absolute;
+    left: 50%;
+    margin-left: -381px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}
+
+#DocBtns {
+  margin-left: 510px;
+}
+
+#PageBarGutter {
+  width: 300px !important;
+}
+
+ul#ServiceChecks li {
+  font-size: 58px;
+  height: 36px;
+}
+
+
+li.checkOnline {
+  color: #0f0;
+}
+
+li.checkOffline {
+  color:#f00;
+}
+
+ul#ServiceChecks li span {
+  color:#000;
+    font-size: 14px;
+    text-transform: uppercase;
+  margin: 0px;
+  padding: 0px;
+  vertical-align: middle;
+}
+
+h3{
+  margin: 0px;
+  padding: 0px;
+}
+</style>
+
+  
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+
+  //KEYBOARD SAVE
+      //KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+    key.filter = function(event){
+      var tagName = (event.target || event.srcElement).tagName;
+      key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+      return true;
+    }
+
+     //SAVE PAGE WITH KEYBOARD
+     key('⌘+s, ctrl+s', function(event){ 
+        event.preventDefault();
+        //alert('saving page');
+        var form =  $("#EditForm")[0];
+        console.log(form.action);
+        submitForm(form.action);
+     });
+
+
+  //TABS
+  /*
+  //TABS BUTTONS
+  $("#buttons").on('click',btnClick);
+  
+  //TABS BUTTON CLICK      
+  function btnClick(e){
+        
+        e.preventDefault();
+        
+        var hash = e.target.hash;
+        var num = hash.substr(-1);
+        var btns = e.currentTarget.children;
+        
+        $.each(btns,function(key,val){
+            var tab = "#tab"+String(key+1);
+              $(tab).css('zIndex',0);
+            var btn = $(btns[key]);
+                btn[0].className = "";
+        });
+
+        $(hash).css('zIndex',1);
+        $("#btn"+num).addClass('active');
+    //END BUTTONS CLICK
+    }
+*/
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+
+
+            //ALERT
+            alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              //addListItem(res);
+            } else {
+              //updateListItem(res.title);
+            }
+         }
+       });
+
+//END SUBMITFORM FUNC
+}
+
+ //GLOBALS
+ var RowIndex;
+  
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+      event.preventDefault();
+      var url = event.target.action;
+
+      //console.log(event);
+      //console.log($("#EditForm").serialize());
+      submitForm(url);
+/*
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              //addListItem(res);
+            } else {
+              //updateListItem(res.title);
+            }
+         }
+       });*/
+
+      return false;
+  //END ON SUBMIT
+   });
+
+/*
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(1);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/pages/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/pages/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "delete";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           
+
+}
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+});
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+})
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+       
+
+  //END CLICK
+  }); 
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      form.attr('action','/{{.Globals.AdminSlug}}/pages/list/');
+      form[0].reset();
+
+  var textareaItem = $("#EditForm textarea[name='content']");
+      textareaItem[0].innerHTML = "";
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  //console.log(results);
+  
+    $("#EditForm .control_forms").each(function(i,v){
+      //console.log(v.name);
+      var formName = v.name;
+      for(var r in results){
+        //console.log(r)
+
+        if(r == formName){
+          //console.log(r + " = "+formName)
+          
+          if(formName == 'content'){
+            var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            textareaItem[0].innerHTML = results[r];
+
+          } else {
+            var inputItem = $("#EditForm input[name='"+formName+"']");
+            inputItem[0].value = results[r];
+
+          }
+        
+        //END IF  
+        }
+
+      //END FOR
+      }
+
+    //END EACH
+    });
+
+  //END FUNC
+  }
+  */
+
+//END DOC
+});
+
+</script>

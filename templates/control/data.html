@@ -1,0 +1,959 @@
+<!--START SECTION-->
+<section id='content'>
+
+
+
+
+
+<!--CREATE DATA TYPE-->
+<div class="panel">
+
+
+
+<!--START FORM-->
+  <form action="/{{.Globals.AdminSlug}}/data/type/" id="EditForm" method="post" class="control_forms">
+
+
+<!--PAGEBAR-->
+<div id="PageBar">
+
+  <!--TYPE NAME-->
+  <!--<div id="SelectTypeName"></div>-->
+
+      <!--<label>Type Name</label>-->
+      <input type="input" name="typeName" placeholder="Type Name" class="control_forms">
+
+
+
+<!--DOCUMENT BUTTONS-->
+<div id="DocBtns">
+    
+    <!--SAVE-->
+    <div id="form_page_savebtn">
+      <input type="submit" value="Save" class="button" title="ctrl+s">
+    </div>
+
+    <!--SUBMIT BUTTON
+    <div>
+      <input id="submitBtn" type="submit" value="Submit" class="submit_button">
+    </div>-->
+
+
+     <!--ADD-->
+    <div id="AddButton">
+      <a href="/{{.Globals.AdminSlug}}/pages/add/">New</a>
+    </div>
+
+<!--END DOC BTNS-->
+</div>
+
+
+
+
+   
+
+<!--END PAGEBAR-->
+</div>
+
+
+<br />
+
+
+  <!--TAB BUTTONS-->
+    <div id="buttons">
+        <a id="btn1" href="#tab1">Fields</a>
+        <a id="btn2" href="#tab2">List Template</a>
+        <a id="btn3" href="#tab3">Item Template</a>
+
+
+    </div>
+
+    <!--TABS-->
+   <div id="tabs">
+
+        <!--TAB1-->
+    <div class="tab" id="tab1">
+
+
+      <br>
+      <br>
+      <!--DEFAULT TITLE INPUT-->
+      <input type="input" name="fieldName0" placeholder="Title" class="control_forms" value="Title" readonly>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <select name="fieldUI0" value="text" class="control_forms" readonly>
+        <option default>text</option>
+        </select>
+        <br>
+        <hr>
+
+      <br>
+         
+    
+    <div id="Fields"></div>
+
+          <br>
+      <a id="AddField" href="">[ + ] Add Field</a>
+      <br>
+
+      <!--END TAB1-->
+    </div>
+
+         <!--TAB2-->
+      <div class="tab" id="tab2">
+
+      <!--START EXAMPLE LIST-->
+      <div id="ExampleList">
+
+       <details id="Details_Example_List" class="data_examples" open>
+
+        <summary>Example List</summary>
+        <div id="ExList"></div>
+       </details>
+     <!--END EXAMPLE LIST-->
+      </div>
+      <br>
+      <!--<label>Lists</label>-->
+      <textarea id="text_area_data_type_list" name="data_type_template_list" rows="3" cols="25" class="control_forms"></textarea>
+
+      <!--END TAB 2-->
+      </div>
+
+         <!--TAB3-->
+      <div class="tab" id="tab3">
+
+      <!--START EXAMPLE LIST-->
+      <div id="ExampleItem">
+
+       <details id="Details_Example_Item" class="data_examples" open>
+
+        <summary>Example Item</summary>
+        <div id="ExItem"></div>
+       </details>
+     <!--END EXAMPLE LIST-->
+      </div>
+
+
+       <br>
+      <!--<label>Items</label>-->
+      <textarea id="text_area_data_type_item" name="data_type_template_item" rows="3" cols="25" class="control_forms"></textarea>
+
+       <!--END TAB 3-->
+      </div>
+
+
+
+    <!--END TABS-->
+    </div>
+
+    <br>
+    <div class="clear"></div>
+
+    <!--HIDDEN INPUTS-->
+    <input type="hidden" name="token" value="{{/*.token*/}}" />
+    <input type="hidden" name="field_count" value="" id="FieldCount" />
+    
+
+  
+
+
+
+
+
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+
+
+    <!--OPTIONS-->
+    <details id="OPTIONS_BOX" open>
+    <summary>Options</summary>
+    <div id="OPTIONS_BOX_BG">
+           <div id="form_page_slug"><label>URL</label><input id="input_slug" type="input" name="slug" placeholder="enter-your-title-here" class="control_forms"><div id="slugPrefixType">/</div></input></div> 
+      <div id="form_page_desc"><label>Description</label><br/><input id="input_description" type="input" name="description" placeholder="Description" class="control_forms" /></div>
+      <div id="form_page_keyw"><label>Keywords</label><br/><input id="input_keywords" type="input" name="keywords" placeholder="Keywords" class="control_forms" /></div>
+   
+    </div>
+    </details>
+
+
+  <!--LIST-->
+     <details id="RECENT_BOX" open>
+
+     <summary>List</summary>
+      <!--LIST-->
+<div id="BOX_BG">
+    <table id="List">
+    {{range $k,$v := .List}}
+      <tr>
+        <td>
+          <a href="/{{$.Globals.AdminSlug}}/data/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+        </td>
+        <td class="deleteItemTD">
+          <a href="/{{$.Globals.AdminSlug}}/data/delete/{{$v.key}}" class="deleteItem">x</a>
+        </td>
+      </tr> 
+        
+    {{end}}
+    </table>
+      <!--END LIST-->
+
+</div>
+   
+    </details>
+
+    <!--SAVE
+    <div id="form_page_savebtn"><input type="submit" value="Save" class="button" title="ctrl+s"></div>
+    -->
+
+     <!--ADD
+    <div id="AddButton">
+      <a href="/{{.Globals.AdminSlug}}/data/add/">NEW</a>
+    </div>
+     -->
+    <div class="clear"></div>
+    <br>
+    <!--GENERAL
+    <details>
+    <summary>GENERAL</summary>
+    <div id="form_page_title"><label>Title</label><br/><input id="input_title" type="input" name="title" placeholder="Enter your title here..." class="control_forms" /></div>
+    -->
+    <br>
+    </details>
+
+
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+  <br />
+  <br />
+
+    <!--END FORM-->
+  </form>
+
+<!--END PANEL-->
+ </div>
+
+<!--END SECTION-->
+</section>
+
+<!--STYLE-->
+<style>
+
+label {
+  display: inline-block;
+  width: auto;
+  padding: 4px;
+}
+
+#submitBtn {
+z-index: 2;
+position: absolute;
+top: 120px;
+left: 774px;
+    padding: 10px 40px;
+    font: 14px arial;
+    color: #fff;
+  display: block;
+  background: #555;
+  border: 0px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+input#submitBtn:hover {
+  background: #999;
+  cursor: pointer;
+
+}
+
+#tabs input[type='input'] {
+    width: 250px;
+  padding: 4px 2px;
+  font: 12px arial;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#tabs {
+    width: 100%;
+  height: auto;
+  min-height: 600px;
+    background: #000;
+    position: relative;
+}
+
+.tab {
+    width: 98%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+    background: #ccc;
+      padding: 10px;
+
+}
+
+#buttons {
+  width: 600px;
+}
+#buttons a {
+  display: inline-block;
+  padding: 8px 20px 14px 20px;
+  background: #999;
+  color: #fff;
+  font: 12px arial;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+#buttons a:hover {
+  background: #777;
+}
+
+#buttons a.active {
+  background: #555;
+}
+
+#tab1 {
+    z-index: 1;
+}
+
+.submit_button {
+  position: absolute;
+  z-index: 1000;
+}
+
+#text_area_data_type_list {
+
+}
+
+#text_area_data_type_item {
+
+}
+
+.deleteFieldRow {
+  cursor: pointer;
+  text-decoration: none;
+  color: #333
+}
+</style>
+
+<!--CODE MIRROR-->
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+
+ //GLOBALS
+ var RowIndex;
+ var FieldIndex = 1;
+ var myTextarea = document.getElementById("text_area_data_type_list");
+ var myTextarea2 = document.getElementById("text_area_data_type_item");
+ var myDataTypeSlug = document.getElementById("input_slug");
+ var myDataDescription = document.getElementById("input_description");
+ var myDataKeywords = document.getElementById("input_keywords");
+
+
+
+ var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'
+  });
+
+  var editor2 = CodeMirror.fromTextArea(myTextarea2, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'
+  });
+
+ editor.setSize("100%","500px");
+ editor2.setSize("100%","500px");
+
+
+  //KEYBOARD SAVE
+      //KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+    key.filter = function(event){
+      var tagName = (event.target || event.srcElement).tagName;
+      key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+      return true;
+    }
+
+     //SAVE PAGE WITH KEYBOARD
+     key('⌘+s, ctrl+s', function(event){ 
+        event.preventDefault();
+        //alert('saving page');
+        var form =  $("#EditForm")[0];
+        //console.log(form.action);
+        submitForm(form.action);
+     });
+
+function listenOnInput(){
+   //EDITING INPUT TITLE
+  $("input[name='typeName']").on('keyup',function(event){
+    console.log(event);
+
+      //VARS
+      var title = event.target.value;
+      var slug = $("#input_slug")[0];
+
+      //MANIPULATE
+      title = title.trim();
+      title = title.replace(/\s/g,"-");
+      title = title.toLowerCase();
+      /** 
+      // alphabet + numberls + hyphen
+      /^[a-zA-Z0-9- ]*$/  
+      **/
+      //title = title.match(/^[a-zA-Z0-9- ]*$/)
+      //title = title.replace(/[\W]/g, "");
+      title = title.replace(/[^a-zA-Z0-9\-]/gi,"-");
+
+      if(title.slice(-1) == "-"){
+        var length = title.length;
+            length = length -1;
+        title = title.substr(0,length);
+      } 
+
+      //ASSIGN TITLE TO SLUG
+      slug.value = title;
+      //slug.value = "/"+title;
+
+      //DEBUG
+      //console.log(event);
+      //console.log("inserting BR at Char " + end);
+
+  //END EDIT INPUT TITLE
+  });
+
+}
+
+
+
+ //FUNC REMOVE ROW
+function removeRow(num){
+ //console.log(num);
+ $("#fieldDataRow"+num).remove();
+ FieldIndex -= 1; 
+ $("#FieldCount").attr('value', FieldIndex);
+
+//END FUNC
+}
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+  //console.log($("#EditForm").serialize());
+
+  //GET IDE TEXT
+  myTextarea.innerHTML = editor.getValue();
+  myTextarea2.innerHTML = editor2.getValue();
+
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+
+            //console.log(res);
+            //ALERT
+            //alertify.set('notifier','position', 'top-right');
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+
+      });
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+}
+
+
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(0);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+        deleteCell.setAttribute("class","deleteItemTD");
+
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/data/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/data/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "x";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+        form.attr('action',titleURL);
+           
+
+}
+
+
+//READY DOC
+$(document).ready(function(){
+
+      listenOnInput();
+
+ /*
+ var field = 
+    '<div>'
+  + '<br />'
+  + '<label>Label</label><input type="input" name="fieldlabel" placeholder="Label" class="control_forms" />'
+  + '<br />'
+  + '<label>Name</label><input type="input" name="fieldname" placeholder="Name" class="control_forms" />'
+  + '<br />'
+  + '<label>Type</label><select name="fieldtype" placeholder="Type"><option>text</option><option>textarea</option></select>'
+  + '<br />'
+  + '<label>Errors</label><select multiple name="fielderrors" placeholder="Errors"><option>blank</option><option>email</option><option>phone</option></select>'
+  + '<br />'
+  + '<br />'
+  + '<hr />'
+  + '</div>';*/
+
+  //ADD FIELD
+  function AddField(){
+       var field = 
+          '<div id="fieldDataRow' + FieldIndex +'"">'
+        + '<br>'
+        + '<input type="input" name="fieldName'+FieldIndex+'" placeholder="Fieldname" class="control_forms" />'
+        + '&nbsp;&nbsp;'
+       // + '<label>Label</label>'
+        //+'<input type="input" name="fieldLabel'+FieldIndex+'" class="control_forms" />'
+        + '&nbsp;&nbsp;'
+        //+ '<label>UI</label>'
+        + '<select name="fieldUI'+FieldIndex+'" class="control_forms">'
+        + '<option>text</option>'
+        //+ '<option>textarea</option>'
+        + '<option>wysiwyg</option>'
+
+        + '<option>image</option>'
+        + '<option>date</option>'
+        + '<option>time</option>'
+        + '<option>tel</option>'
+        + '<option>url</option>'
+        + '</select>'
+        + '&nbsp;&nbsp;'
+        + '&nbsp;&nbsp;'
+        + '<a id="fieldDelete' + FieldIndex +'" class="deleteFieldRow" onClick="removeRow(' + FieldIndex +');">[ - ] Delete</a>'
+        + '<br>'
+        + '<br>'
+        + '<hr>'
+        + '</div>';
+        /*
+        + '<label>Errors</label>'
+        //+ '&nbsp;&nbsp;&nbsp;'
+        //+ '<select multiple name="fieldErrors'+FieldIndex+'" >'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="blank">blank &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="email">email &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="phone">phone &nbsp;'
+        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="url">url &nbsp;'
+        */
+        //+ '<option>email</option>'
+        //+ '<option>phone</option>'
+        //+ '</select>'
+
+
+      $("#Fields").append(field);
+
+      FieldIndex += 1;
+
+      //console.log(event);
+     // console.log(FieldIndex);
+
+      $("#FieldCount").attr('value', FieldIndex);
+      //console.log($("#FieldCount").attr('value'));
+  //END FUNC 
+  }
+
+
+
+
+  //CLICK ADD FIELD BUTTON
+  $("#AddField").on('click',function(event){
+      event.preventDefault();
+
+      AddField();
+
+      return false;
+
+   });
+  
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+    
+     event.preventDefault();
+
+
+
+      var form =  $("#EditForm")[0];
+        //console.log(form.action);
+        submitForm(form.action);
+    /*
+      var url = event.target.action;
+
+      //console.log(event);
+      console.log($("#EditForm").serialize());
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+       });
+
+      return false;*/
+
+   });
+
+/*
+
+//CLICK DELETE ROW BUTTON
+$("a.control_forms_delete").on('click',function(event){
+
+  event.preventDefault();
+
+  console.log(event);
+
+//END CLICK DELETE
+});
+*/
+
+
+
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+});
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        //console.log(results);
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+})
+
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+
+  //END CLICK
+  }); 
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      form.attr('action','/{{.Globals.AdminSlug}}/data/type/');
+      form[0].reset();
+
+      FieldIndex = 1;
+      $("#Fields").empty();
+
+
+  //var textareaItem = $("#EditForm textarea[name='content']");
+      //textareaItem[0].innerHTML = "";
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  //ResetForm(); //CAUSED ISSUES
+
+  //console.log(results);
+  
+ // $("#EditForm .control_forms").each(function(i,v){
+
+   $("#EditForm :input").each(function(i,v){
+     // console.log(v.name);
+      
+      var formName = v.name;
+
+     if(formName == 'typeName'){
+        var inputItem = $("#EditForm input[name='"+formName+"']");
+            inputItem[0].value = results[0].title;
+     }
+
+     if(formName == 'data_type_template_list'){
+          editor.setValue(results[0].TemplateList);
+          //var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            //textareaItem[0].innerHTML = results[0].TemplateList;
+        
+
+      }
+
+      if(formName == 'data_type_template_item'){
+                  editor2.setValue(results[0].TemplateItem);
+          //var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            //textareaItem[0].innerHTML = results[0].TemplateItem;
+
+      }
+
+      if(formName == 'slug'){
+                 // myDataTypeSlug.value = "/" + results[0].typeurl;
+                   myDataTypeSlug.value =  results[0].typeurl;
+      }
+
+      if(formName == 'description'){
+                  myDataDescription.value = results[0].Description;
+      }
+
+      if(formName == 'keywords'){
+                  myDataKeywords.value = results[0].Keywords;
+      }
+
+    //END EACH
+    });
+
+      //FOR 1
+      for(var r in results[0].fields){
+        
+       //console.log(results[0].fields[r]);
+        //console.log(results);
+
+        //IF 1
+        if(r != 0){
+            
+            AddField();
+
+
+            var inputItem = $("#EditForm input[name='fieldName"+ r +"']");
+                inputItem[0].value = results[0].fields[r].Name;
+
+            var selectItem = $("#EditForm select[name='fieldUI"+ r +"']");
+           //console.log(selectItem);
+
+            //FOR 2
+            for(var s in selectItem[0].options){
+              
+              //console.log(selectItem[0].options[s].value);
+              //console.log(results[0].fields[r].UI);
+
+              if(selectItem[0].options[s].value == results[0].fields[r].UI){
+                //console.log("match");
+                 var UI_IDX;
+
+                 //UI_IDX = selectItem[0].options[s].index;
+                  selectItem[0].selectedIndex = s;
+
+              }
+
+             //END FOR 2 
+            }
+
+
+        //END IF 1
+        }
+
+      //END FOR 1
+      }
+
+ 
+
+  //END FUNC
+  }
+
+  //BUTTONS CLICK
+  $("#buttons").on('click',"#btn2",function(event){
+
+    console.log("Btn 2 clicked");
+    console.log(event);
+
+   var fields =  $("#Fields input.control_forms");
+   console.log(fields);
+
+    var list = $("#ExList");
+
+    list[0].innerHTML = "";
+    list.append("\{\{range $k,$v := .List\}\}");
+    list.append("<br />");
+    list.append("\{\{$v.info.title\}\}");
+     list.append("<br />");
+     list.append("\{\{$v.info.url\}\}")
+    //list.append("\<\a href='/" + "\{\{$v.info.title\}\}"+"\{\{$v.info.url\}\}" +"'\>\<\/\a\>");
+
+   for(var i=0;i< fields.length;i++){
+      console.log(fields[i].value);
+      list.append("<br />");
+      list.append("\{\{$v.content." + fields[i].value.toLowerCase() + "\}\}");
+
+   }
+
+    list.append("<br />");
+    list.append("\{\{end\}\}");
+
+
+  //END CLICK
+  });
+
+
+    //BUTTONS CLICK #2
+  $("#buttons").on('click',"#btn3",function(event){
+
+    console.log("Btn 3 clicked");
+    console.log(event);
+
+   var fields =  $("#Fields input.control_forms");
+   console.log(fields);
+
+    var list = $("#ExItem");
+
+    list[0].innerHTML = "";
+    //list.append("\{\{range $k,$v := .List\}\}");
+    //list.append("<br />");
+    list.append("\{\{.Data.title\}\}");
+     //list.append("<br />");
+     //list.append("\{\{$v.info.url\}\}")
+    //list.append("\<\a href='/" + "\{\{$v.info.title\}\}"+"\{\{$v.info.url\}\}" +"'\>\<\/\a\>");
+
+   for(var i=0;i< fields.length;i++){
+      console.log(fields[i].value);
+      list.append("<br />");
+      list.append("\{\{.Data." + fields[i].value.toLowerCase() + "\}\}");
+
+   }
+
+
+  //END CLICK
+  });
+
+
+//END DOC
+});
+
+</script>

@@ -1,0 +1,592 @@
+       <div id="ItemsList">
+
+        <table id="AllList">
+        {{range $k,$v := .List}}
+          <tr>
+            <td>
+              <a href="/{{$.Globals.AdminSlug}}/pages/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+            </td>
+            <td class="deleteItemTD">
+              <a href="/{{$.Globals.AdminSlug}}/pages/delete/{{$v.key}}" class="deleteItem">x</a>
+            </td>
+          </tr> 
+            
+        {{end}}
+        </table>
+</div>
+
+<!--START SECTION-->
+<section id='content'>
+
+<!--<h2>{{/*.Data.title*/}}</h2>-->
+
+
+
+<!--EDIT-->
+<div class="panel">
+
+
+
+
+<!--FORM-->
+<form action="/{{.Globals.AdminSlug}}/pages/list/" id="EditForm" method="post" class="control_forms">
+
+
+<!--PAGEBAR-->
+<div id="PageBar">
+
+
+
+
+<!--GUTTER
+<div id="PageBarGutter"></div>-->
+
+<!--INPUT TITLE-->
+  <!--<div id="form_page_title"></div>-->
+    <input id="input_title" type="input" name="title" placeholder="Enter page title here..." class="control_forms" />
+    
+    <!--DOCUMENT BUTTONS-->
+
+<div id="DocBtns">
+    <!--SAVE-->
+    <div id="form_page_savebtn">
+      <input type="submit" value="Save" class="button" title="ctrl+s">
+    </div>
+
+     <!--ADD-->
+    <div id="AddButton">
+      <a href="/{{.Globals.AdminSlug}}/pages/add/">New</a>
+    </div>
+
+<!--END DOC BTNS-->
+</div>
+
+
+
+<!--END PAGEBAR-->
+</div>
+
+<br />
+
+<!--
+    <div id="form_page_title"><label>Title</label>
+      <br>
+      <input id="input_title" type="input" name="title" placeholder="Enter your title here..." class="control_forms" />
+
+      <div id="form_page_slug"><input id="input_slug" type="input" name="slug" placeholder="/enter-your-title-here" class="control_forms" /></div> 
+
+    </div>
+
+    <div id="form_page_content"><label>Content</label>-->
+    
+      <!--TEXT AREA HEADER-->
+      <div id="form_page_editor">
+            <textarea id="text_area_content" name="content" rows="3" cols="25"  class="control_forms"></textarea>
+      </div>
+
+
+<!--TAB BUTTONS
+    <div id="buttons">
+    <a id="btn1" href="#tab1">Editor</a>
+    <a id="btn2" href="#tab2">SEO</a>
+    </div>
+
+<!--TABS
+    <div id="tabs">
+
+    <!--TAB1
+    <div class="tab" id="tab1">
+      <!--TEXT AREA HEADER
+      <div id="form_page_editor">
+            <textarea id="text_area_content" name="content" rows="3" cols="25"  class="control_forms"></textarea>
+      </div>
+  
+    </div>
+
+    <!--TAB2
+    <div class="tab" id="tab2">
+    
+    <!--SEO
+    <details id="SEO_BOX">
+    <summary>SEO</summary>
+    <div id="SEO_BOX_BG">
+    <br />
+    <br>
+    </div>
+    </details>
+    <div id="PAGES_SEO_TAB">
+      <div id="form_page_slug"><label>URL</label><input id="input_slug" type="input" name="slug" placeholder="/enter-your-title-here" class="control_forms" /></div> 
+      <div id="form_page_desc"><label>Description</label><br/><input type="input" name="description" placeholder="Description" class="control_forms" /></div>
+      <div id="form_page_keyw"><label>Keywords</label><br/><input type="input" name="keywords" placeholder="Keywords" class="control_forms" /></div>
+      <div id="form_page_single"><label>Single Page</label><input id="input_single" type="checkbox" value="1" name="single" class="control_forms" /></div> 
+
+    </div>
+
+    </div>
+    
+<!--END TABS
+</div>-->
+
+
+
+    <!--SIDEBAR-->
+    <div id="Sidebar">
+
+    <!--CLOSE BTN-->
+    <div id="SidebarCloseBtn"> ><br />> </div>
+
+    <div class="clear"></div>
+
+
+
+    <!--ADVANCED
+    <details open>
+    <summary>Advanced</summary>
+    <div id="form_page_template"><label>Template</label><br/><input type="input" name="template" placeholder="Template" class="control_forms" /></div>
+    <div id="form_page_js"><label>JS</label><br/><input type="input" name="js" placeholder="JS" class="control_forms" /></div>
+    <div id="form_page_css"><label>CSS</label><br/><input type="input" name="css" placeholder="CSS" class="control_forms" /></div>
+    <br>
+    </details>-->
+
+        <!--OPTIONS-->
+    <details id="OPTIONS_BOX" open>
+    <summary>Options</summary>
+    <div id="OPTIONS_BOX_BG">
+       <div id="form_page_slug"><label>URL</label><input id="input_slug" type="input" name="slug" placeholder="/enter-your-title-here" class="control_forms" /></div> 
+      <div id="form_page_desc"><label>Description</label><br/><input type="input" name="description" placeholder="Description" class="control_forms" /></div>
+      <div id="form_page_keyw"><label>Keywords</label><br/><input type="input" name="keywords" placeholder="Keywords" class="control_forms" /></div>
+      <div id="form_page_single">
+
+      <!-- <label>Single Page</label><input id="input_single" type="checkbox" value="1" name="single" class="control_forms" />-->
+      <label>Single Page</label>
+      <label class="switch">
+        <input id="input_single" name="single" type="checkbox" value="1" class="control_forms">
+        <div class="slider round"></div>
+    </label>
+
+      </div> 
+
+    </div>
+    </details>
+
+    <!--LIST-->
+     <details id="RECENT_BOX" open>
+     <summary>Recent List</summary>
+    <div id="BOX_BG">
+        <table id="List">
+        {{range $k,$v := .List}}
+          <tr>
+            <td>
+              <a href="/{{$.Globals.AdminSlug}}/pages/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+            </td>
+            <td class="deleteItemTD">
+              <a href="/{{$.Globals.AdminSlug}}/pages/delete/{{$v.key}}" class="deleteItem">x</a>
+            </td>
+          </tr> 
+            
+        {{end}}
+        </table>
+
+      <!--END LIST-->
+    </div>
+    </details>
+
+ 
+
+    <div class="clear"></div>
+
+    <!--END SIDEBAR-->
+    </div>
+
+    <input type="hidden" name="token" value="{{/*.token*/}}" />
+
+  <!--END FORM-->
+  </form>
+
+<!--END PANEL-->
+ </div>
+
+
+
+
+<!--END SECTION-->
+</section>
+
+<!--CODE MIRROR-->
+
+
+
+<!--JAVASCRIPT-->
+<script type="text/javascript">
+ var myTextarea = document.getElementById("text_area_content");
+ var editor = CodeMirror.fromTextArea(myTextarea, {
+    lineNumbers: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    mode: 'text/html'
+  });
+
+ editor.setSize("100%","580px");
+
+
+$(document).ready(function(){
+
+  console.log('Welcome to the Control Room');
+  //CoolClock.findAndCreateClocks();
+
+ //GLOBALS
+ var RowIndex;
+
+
+//KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
+key.filter = function(event){
+  var tagName = (event.target || event.srcElement).tagName;
+  key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
+  return true;
+}
+
+ //SAVE PAGE WITH KEYBOARD
+ key('⌘+s, ctrl+s', function(event){ 
+    event.preventDefault();
+    //alert('saving page');
+    var form =  $("#EditForm")[0];
+    console.log(form.action);
+    submitForm(form.action);
+ });
+
+
+ //EDITING INPUT TITLE
+$("#input_title").on('keyup',function(event){
+
+    //VARS
+    var title = event.target.value;
+    var slug = $("#input_slug")[0];
+
+    //MANIPULATE
+    title = title.trim();
+    title = title.replace(/\s/g,"-");
+    title = title.toLowerCase();
+    /** 
+    // alphabet + numberls + hyphen
+    /^[a-zA-Z0-9- ]*$/  
+    **/
+    //title = title.match(/^[a-zA-Z0-9- ]*$/)
+    //title = title.replace(/[\W]/g, "");
+    title = title.replace(/[^a-zA-Z0-9\-]/gi,"-");
+
+    if(title.slice(-1) == "-"){
+      var length = title.length;
+          length = length -1;
+      title = title.substr(0,length);
+    } 
+
+    //ASSIGN TITLE TO SLUG
+    slug.value = "/"+title;
+
+    //DEBUG
+    //console.log(event);
+    //console.log("inserting BR at Char " + end);
+
+//END EDIT INPUT TITLE
+});
+  
+//EDITING IN TEXTAREA
+$("#text_area_content").on('keyup',function(event){
+  
+  //IF RETURN LINE
+  if(event.keyCode == 13){
+
+    //VARS
+    var field = event.target;
+    var br;
+    var end = event.target.selectionEnd;
+    var start = event.target.selectionStart;
+
+    //SHIFT KEY
+    if(event.shiftKey == true){
+      event.preventDefault();
+      br = "<br>\r";
+    } else {
+      br = "";
+    }
+
+    //CALC END CURSOR
+    var end_cursor = field.value.substring(0, start).length + (br.length);
+
+
+    //INSERT <BR>
+    field.value = field.value.substring(0,start) + br  + field.value.substring(end,field.value.length);
+
+    //END CURSOR
+    field.focus();
+    field.setSelectionRange(end_cursor,end_cursor);
+
+    //DEBUG
+    //console.log(event);
+    //console.log("inserting BR at Char " + end);
+
+  //END IF
+  }
+
+//END EDIT TEXTAREA
+});
+
+
+  //CLICK SUBMIT BUTTON
+  $("#EditForm").on('submit',function(event){
+      event.preventDefault();
+      var url = event.target.action;
+
+      //console.log(event);
+      //console.log($("#EditForm").serialize());
+      submitForm(url);
+
+
+      return false;
+  //END CLICK SUBMIT
+   });
+
+//SUBMIT FORM AJAX
+function submitForm(url){
+
+  //GET IDE TEXT
+  myTextarea.innerHTML = editor.getValue();
+
+  console.log($("#EditForm").serialize());
+
+      //AJAX
+      $.ajax({
+         type: "POST",
+         url: url,
+         data: $("#EditForm").serialize(),
+         success: function(res){
+            //ALERT
+            alertify.success(res.message);
+
+            //IF KEY
+            if(res.key){
+              addListItem(res);
+            } else {
+              updateListItem(res.title);
+            }
+         }
+       });
+
+//END SUBMITFORM FUNC
+}
+
+//FUNC UPDATE LIST ITEM
+function updateListItem(newTitle){
+  var changedRow = $("#List tr:nth-child("+RowIndex+") td a");
+      changedRow[0].innerHTML = newTitle;
+  //console.log(changedRow);
+}
+
+//FUNC ADD LIST ITEM
+function addListItem(res){
+
+    //INSERT NEW ROW/CELLS
+    var newRow = $("#List")[0].insertRow(0);
+    var titleCell = newRow.insertCell(0);
+    var deleteCell = newRow.insertCell(1);
+        deleteCell.setAttribute("class","deleteItemTD");
+
+
+    //SETUP INFO
+    var titleText  = res.title;
+    var titleURL   = '/'+res.adminSlug+'/pages/edit/'+res.key;
+    var deleteURL  = '/'+res.adminSlug+'/pages/delete/'+res.key;
+
+    //PREP TITLE ELEMENT
+    var titleEl = document.createElement('a');
+        titleEl.setAttribute("href",titleURL);
+        titleEl.setAttribute("class","listItem");
+        titleEl.innerHTML = titleText;
+
+    //PREP DELETE ELEMENT
+    var deleteEl = document.createElement('a');
+        deleteEl.setAttribute("href",deleteURL);
+        deleteEl.setAttribute("class","deleteItem");
+        deleteEl.innerHTML = "x";
+
+    //APPEND ELEMENTS
+    titleCell.appendChild(titleEl);
+    deleteCell.appendChild(deleteEl);
+
+    //UPDATE FORM ACTION
+    var form = $("#EditForm");
+    form.attr('action',titleURL);
+           
+
+}
+
+
+
+//CLICK ADD BUTTON
+$("#AddButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+
+    ResetForm();
+
+});
+
+//CLICK LIST BUTTONS
+$("#List").on('click','tr td a.listItem',function(event){
+
+    //PREVENT DEFAULT
+    event.preventDefault();
+
+    //RESET FORM
+    ResetForm();
+
+    //GRAB URL
+    var url = event.target.href;
+
+    //GRAB ROW INDEX
+    RowIndex = event.target.parentElement.parentElement.rowIndex + 1;
+    //console.log(RowIndex);
+
+    //CHANGE FORM URL
+    $("#EditForm").attr('action',url);
+
+
+    //AJAX LOAD SINGLE ITEM
+    $.ajax({
+      url:url,
+      success:function(results){
+        LoadItem(results);
+      }
+    //END AJAX 
+    });
+
+//END CLICK LIST
+})
+
+//CLICK DELETE BUTTONS
+$("#List").on('click',"tr td a.deleteItem",function(event){
+      
+      //PREVENT DEFAULT
+      event.preventDefault();
+      
+      //GRAB URL
+      var url = event.target.href;
+
+      //GRAB ROW INDEX
+      var index = Number(event.target.parentNode.parentNode.rowIndex);
+      //console.log(index);
+
+    //CONFIRM SETUP
+    alertify.set({ 
+      labels: {
+        ok:"Yes",
+        cancel:"No"
+      },
+      buttonReverse:true
+
+    });
+
+    //CONFIRM
+    alertify.confirm("Are you sure you want to delete the item?", function(e){
+
+      //YES
+      if(e){
+
+        //AJAX
+        $.ajax({
+           type: "POST",
+           url: url,
+           success: function(res){
+              //RESET FORM              
+              ResetForm(); 
+              
+              //DELETE ROW
+              $("#List")[0].deleteRow(index);
+               
+              //ALERT
+              alertify.success(res);
+           }
+
+        //END AJAX
+        });
+      }
+
+    //END CONFIRM       
+    });
+      
+
+       
+
+  //END CLICK
+  }); 
+
+
+//FUNC RESET ITEMS
+function ResetForm(){
+  var form = $("#EditForm");
+      form.attr('action','/{{.Globals.AdminSlug}}/pages/list/');
+      form[0].reset();
+
+  var textareaItem = $("#EditForm textarea[name='content']");
+      textareaItem[0].innerHTML = "";
+
+  editor.setValue("");
+
+}
+
+//FUNC LOAD ITEMS
+function LoadItem(results){
+  
+  //console.log(results);
+  
+    $("#EditForm .control_forms").each(function(i,v){
+      //console.log(v.name);
+      var formName = v.name;
+      for(var r in results){
+        //console.log(r)
+
+        if(r == formName){
+          //console.log(r + " = "+formName)
+          
+          if(formName == 'content'){
+            var textareaItem = $("#EditForm textarea[name='"+formName+"']");
+            textareaItem[0].innerHTML = results[r];
+
+          }else if(formName == 'single'){
+            var inputItem = $("#EditForm input[name='"+formName+"']");
+                if(results[r] == "1"){
+                  inputItem[0].checked = true;
+                  //inputItem[0].value = results[r];
+
+                } else {
+                  inputItem[0].checked = false;
+                  //inputItem[0].value = results[r];
+
+                }
+
+          } else {
+            var inputItem = $("#EditForm input[name='"+formName+"']");
+            inputItem[0].value = results[r];
+
+          }
+        
+        //END IF  
+        }
+
+      //END FOR
+      }
+
+    //END EACH
+    });
+
+      //console.log(myTextarea.textContent);
+      //IDE SET VALUE
+      editor.setValue(myTextarea.textContent);
+
+  //END FUNC
+  }
+
+//END DOC
+});
+
+</script>

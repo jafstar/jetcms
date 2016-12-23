@@ -1,0 +1,47 @@
+body {
+  background: #FFF;
+}
+
+h1,h2,h3,h4,h5,h6,a,ul,li {
+  padding: 0px;
+  margin: 0px;
+}
+
+input {
+  pointer-events: auto;
+}
+
+textarea {
+  resize: none;
+  pointer-events: auto;
+  overflow: auto; 
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+iframe {
+  border: 0px;
+  /*frameBorder: 0px;*/
+}
+
+img {
+  border: 0px;
+  /* REQUIRED FOR AJAX
+  pointer-events: none;*/
+}
+
+a {
+  border: 0px;
+  text-decoration: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
+  outline: none;
+}
+
+.clear {
+  width: 100%;
+  clear: both;
+}
