@@ -10,26 +10,31 @@ The purpose of this project is to allow anyone to have a solid and flexible plat
 So here and now we release this small beast of a project into the wild, hoping it will give you the publishing power you need to find success on the web. 
 
 
+#Christmas Update 2016
 
-##FINISHED
+It's been a while but the dream is still alive. Looking forward to adding some final pieces before a public beta release. If you need help getting it running or just understanding how it works, post your questions in the issue tracker.
 
-+ Added Server info on new Status page
-+ Added Cache Flush button
-+ Added default data for Styles and Core
-+ Fixed Files AJAX upload and display
-+ Files upload needs new key after successful upload
-+ Fixed Tabs console error for clicking divs
-+ Date ordering
-+ Fixed Single Page rendering
+Wanting to add these before release
 
-##TODO
++Form Maker
++Static Generator
++Separate Settings
++Cron Back Up Emailer
++Analytics Dashboard
++More Date tracking
++Garbage and Archive
++Version Control
 
-+ Create Newsletter Form
-+ Create dyanimc/expiring Form Session URLs
-+ Search fields option
-+ Content Image upload
-+ Gallery Image option
-+ Auto image crop on upload
+So as you can see that's a lot of work, but I will keep posting any updates I have as soon as possible.
+
+As always,
+
+Live Long and Prosper
+
+
+PS - Thank you to Quill.js, CodeMirror.js, keymaster.js, alertify.js, and  jquery.js
+
+
 
 ---
-Updated: March 11th, 2016
+Updated: Dec 22nd, 2016
