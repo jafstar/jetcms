@@ -159,8 +159,6 @@ func getPages(w http.ResponseWriter, r *http.Request) []string {
         c := appengine.NewContext(r)
 
 
-  //fmt.Fprint(w,string(cache[:]))
-  //fmt.Fprintf(w, "memcache: Val=%q", cache)
         c.Errorf("error getting cache pages item: %v", err)
 
 
@@ -180,9 +178,7 @@ func getPages(w http.ResponseWriter, r *http.Request) []string {
       }
 
         for key := range gg {
-          //fmt.Fprintln(w, gg[key].Slug)
           p = append(p,gg[key].Slug)
-          //pages = [gg[key].Title]: gg[key].Slug,
         }
 
         cacheAdd("pages",r,p)
@@ -192,7 +188,6 @@ func getPages(w http.ResponseWriter, r *http.Request) []string {
     //USE CACHE
     } else {
       urls := strings.Split(string(cache.Value[:]), ",")
-      //c.Infof(strings.Join(urls,", "))
 
       return urls
     
@@ -212,7 +207,6 @@ func getPageData(w http.ResponseWriter, r *http.Request,t string) map[string]str
 
      q := datastore.NewQuery("page").Filter("Slug =",url).Limit(10)
 
-          //fmt.Fprintln(w, q)
 
      var gg []*Page
     _,err := q.GetAll(c,&gg)
@@ -228,14 +222,71 @@ func getPageData(w http.ResponseWriter, r *http.Request,t string) map[string]str
       "get": "true",
       //"id":gg[0].Key,
       "title": gg[0].Title,
+      "pagetitle": gg[0].PageTitle,
+
       "description": gg[0].Description,
       "keywords": gg[0].Keywords,
       "content":gg[0].Content,
-      "js": gg[0].JS, //cdn["ms"]+"/jquery.validate/1.9/jquery.validate.min.js",
+      "js": gg[0].JS,
       "css":gg[0].CSS,
       "template":gg[0].Template,
       "single":gg[0].Single,
 
+      "class": strings.Trim(gg[0].Slug, "/"),//"page",
+
+    }
+
+
+    return data
+  } else {
+    return nil
+  }
+
+//END FUNC
+}
+
+//GET PAGE W/KEY
+func getPageWithKey(w http.ResponseWriter, r *http.Request,k string) map[string]string{
+
+    c := appengine.NewContext(r)
+
+  
+       //DECODE KEY
+  key,err := datastore.DecodeKey(k)
+    
+  //KEY ERR
+  if err != nil {
+    fmt.Fprintln(w, "error decoding key")
+    return nil
+  }
+
+    q := datastore.NewQuery("page").Filter("__key__ =", key).Limit(1)
+
+
+     var gg []*Page
+
+    _,errGet := q.GetAll(c,&gg)
+
+    if errGet != nil {
+       fmt.Fprint(w,"error getting page data: " + err.Error())
+      return nil
+    }
+
+    if gg != nil {
+
+    data := map[string]string{
+      //"id":gg[0].Key,
+      "title": gg[0].Title,
+            "pagetitle": gg[0].PageTitle,
+
+      "description": gg[0].Description,
+      "keywords": gg[0].Keywords,
+      "content":gg[0].Content,
+      "js": gg[0].JS, 
+      "css":gg[0].CSS,
+      "template":gg[0].Template,
+      "single":gg[0].Single,
+      "url": gg[0].Slug,
       "class": strings.Trim(gg[0].Slug, "/"),//"page",
 
     }
@@ -398,13 +449,13 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
      "SiteClosed",
      "SiteAnalytics",
 
-     "HomeTitle",
-     "HomeDesc",
-     "HomeKeyW",
+     //"HomeTitle",
+     //"HomeDesc",
+     //"HomeKeyW",
 
-     "SoonTitle",
-     "SoonDesc",
-     "SoonKeyW",
+     //"SoonTitle",
+     //"SoonDesc",
+     //"SoonKeyW",
      "SoonURL",
 
      "CacheControl",
@@ -412,8 +463,8 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
      "CacheMonths",
 
      "AdminEmail",
-     "FromEmail",
-     "ToEmail",
+     //"FromEmail",
+     //"ToEmail",
   }
 
   //GET CACHE
@@ -459,13 +510,13 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
          "SiteClosed":db[i].Site_Closed,
          "SiteAnalytics":db[i].Site_Analytics,
 
-         "HomeTitle":db[i].Home_Title,
-         "HomeDesc":db[i].Home_Desc,
-         "HomeKeyW":db[i].Home_KeyW,
+        // "HomeTitle":db[i].Home_Title,
+        // "HomeDesc":db[i].Home_Desc,
+         //"HomeKeyW":db[i].Home_KeyW,
 
-         "SoonTitle":db[i].Soon_Title,
-         "SoonDesc":db[i].Soon_Desc,
-         "SoonKeyW":db[i].Soon_KeyW,
+         //"SoonTitle":db[i].Soon_Title,
+         //"SoonDesc":db[i].Soon_Desc,
+         //"SoonKeyW":db[i].Soon_KeyW,
          "SoonURL":db[i].Soon_URL,
 
          "CacheControl":db[i].Cache_Control,
@@ -473,8 +524,8 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
          "CacheMonths":db[i].Cache_Months,
 
          "AdminEmail":db[i].Admin_Email,
-         "FromEmail":db[i].From_Email,
-         "ToEmail":db[i].To_Email,
+         //"FromEmail":db[i].From_Email,
+         //"ToEmail":db[i].To_Email,
 
        }
       
@@ -499,13 +550,13 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
          "SiteClosed":string(cache["SiteClosed"].Value[:]),
          "SiteAnalytics":string(cache["SiteAnalytics"].Value[:]),
 
-         "HomeTitle":string(cache["HomeTitle"].Value[:]),
-         "HomeDesc":string(cache["HomeDesc"].Value[:]),
-         "HomeKeyW":string(cache["HomeKeyW"].Value[:]),
+        // "HomeTitle":string(cache["HomeTitle"].Value[:]),
+        // "HomeDesc":string(cache["HomeDesc"].Value[:]),
+         //"HomeKeyW":string(cache["HomeKeyW"].Value[:]),
 
-         "SoonTitle":string(cache["SoonTitle"].Value[:]),
-         "SoonDesc":string(cache["SoonDesc"].Value[:]),
-         "SoonKeyW":string(cache["SoonKeyW"].Value[:]),
+         //"SoonTitle":string(cache["SoonTitle"].Value[:]),
+         //"SoonDesc":string(cache["SoonDesc"].Value[:]),
+         //"SoonKeyW":string(cache["SoonKeyW"].Value[:]),
           "SoonURL":string(cache["SoonURL"].Value[:]),
 
           "CacheControl":string(cache["CacheControl"].Value[:]),
@@ -513,8 +564,8 @@ func getSettings(w http.ResponseWriter, r *http.Request) map[string]string {
           "CacheMonths":string(cache["CacheMonths"].Value[:]),
 
          "AdminEmail":string(cache["AdminEmail"].Value[:]),
-         "FromEmail":string(cache["FromEmail"].Value[:]),
-         "ToEmail":string(cache["ToEmail"].Value[:]),
+         //"FromEmail":string(cache["FromEmail"].Value[:]),
+         //"ToEmail":string(cache["ToEmail"].Value[:]),
 
          }
 
@@ -745,7 +796,7 @@ func getImageKey(w http.ResponseWriter, r *http.Request, filename string) string
       //fmt.Fprintln(w,keys[0])
       //fmt.Fprintln(w,keys[0].StringID())
       //fmt.Fprintln(w,keys[0].Kind())
-      //fmt.Fprintln(w, gg[0].Size)
+      //fmt.Fprintln(w, gg[0].ObjectName)
       //fmt.Fprintln(w, filename)
       
     

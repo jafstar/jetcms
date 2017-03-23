@@ -11,6 +11,8 @@ func init() {
   //PARSER
   http.HandleFunc("/", parser)
 
+  //http.HandleFunc("/", staticParser)
+
   //DYNAMIC STYLES
   http.HandleFunc("/styles/",styles)
 
@@ -46,6 +48,10 @@ func init() {
 
   //CONTROL FLUSH CACHE
   http.HandleFunc("/"+AdminSlug+"/cache/flush", cacheFlushAll)
+
+
+  //CONTROL STATIC GENERATOR
+  http.HandleFunc("/"+AdminSlug+"/static/generator/", staticGenerator)
 
 
   //CONTROL DESIGN

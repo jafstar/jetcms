@@ -236,7 +236,7 @@ if r.Header.Get("X-Requested-With") != "" {
 
       TheFields = append(TheFields, FieldType {
         Name:   formVal("fieldName" + iCount),
-        //Label:  formVal("fieldLabel" + iCount),
+        Order:  formVal("fieldOrder" + iCount),
         UI:     formVal("fieldUI" + iCount),
         //Errors: formVal("fieldErrors" + iCount),
       })
@@ -436,7 +436,7 @@ func control_data_edit(w http.ResponseWriter, r *http.Request) {
       //THE FIELDS
       TheFields = append(TheFields, FieldType {
         Name:   formVal("fieldName" + iCount),
-        //Label:  formVal("fieldLabel" + iCount),
+        Order:  formVal("fieldOrder" + iCount),
         UI:     formVal("fieldUI" + iCount),
         //Errors: formVal("fieldErrors" + iCount),
       })

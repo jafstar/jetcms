@@ -1,6 +1,17 @@
-<!-- Main Quill Local library-->
+<!-- Main Quill Local library
+  https://cdnjs.cloudflare.com/ajax/libs/quill/1.2.2/quill.min.js
 <link href="/admin/static/dir/quill.snow.css" rel="stylesheet">
 <script src="/admin/static/dir/quill.min.js" type="text/javascript"></script>
+-->
+
+<!-- Main Quill CDN library 
+<link href="//cdn.quilljs.com/1.0.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.0.6/quill.min.js" type="text/javascript"></script>
+-->
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.2.2/quill.snow.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.2.2/quill.min.js" type="text/javascript"></script>
+
 
 
 <!--STYLE-->
@@ -257,10 +268,7 @@ background: #fff;
 <!--END SECTION-->
 </section>
 
-<!-- Main Quill CDN library 
-<link href="//cdn.quilljs.com/1.0.6/quill.snow.css" rel="stylesheet">
-<script src="https://cdn.quilljs.com/1.0.6/quill.min.js" type="text/javascript"></script>
--->
+
 
 
 
@@ -279,6 +287,9 @@ background: #fff;
 var RowIndex = 0;
 var showHTMLBool = false;
 var quill;
+var NewItem = true;
+ var myDataTypeSlug = document.getElementById("input_slug");
+
  
   //KEYBOARD SAVE
   //KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
@@ -300,6 +311,8 @@ var quill;
 function listenOnInput(){
    //EDITING INPUT TITLE
   $("input[name='title']").on('keyup',function(event){
+
+    if(NewItem){
     console.log(event);
 
       //VARS
@@ -331,6 +344,8 @@ function listenOnInput(){
       //DEBUG
       //console.log(event);
       //console.log("inserting BR at Char " + end);
+
+    }
 
   //END EDIT INPUT TITLE
   });
@@ -604,6 +619,10 @@ function TypeSelectChanged(evt){
   var idx = evt.target.selectedIndex;
   var optionTxt = evt.target[idx].text;
 
+    NewItem = true;
+    myDataTypeSlug.disabled = false;
+  myDataTypeSlug.style.background = "#ffffff";
+
   //DEBUG
   //console.log(itemKey);
   //console.log(optionTxt);
@@ -630,11 +649,14 @@ function GetTypeDetails(txtVal,keyVal,itemResults){
         RenderFieldType(results,itemResults);
 
         //SET HIDDEN VALS
-        $("#fieldTypeURL").attr("value", results[0].typeurl);
+       // $("#fieldTypeURL").attr("value", results[0].typeurl);
+        $("#fieldTypeURL").attr("value", itemResults.info.url);
 
         //SET VIEW ITEM LINK ON LOAD
             var viewItemLink = document.getElementById('ViewItem');
-            viewItemLink.href = "/" + results[0].typeurl +"/"+ itemResults.info.url;
+           // viewItemLink.href = "/" + results[0].typeurl +"/"+ itemResults.info.url;
+            viewItemLink.href = "/" + itemResults.info.typeurl +"/"+ itemResults.info.url;
+
 
         //LoadTypes(results);
         //LoadItem(results);          
@@ -790,6 +812,10 @@ $("#AddButton a").on('click',function(event){
     event.preventDefault();
     //var url = event.target.href;
 
+      NewItem = true;
+    myDataTypeSlug.disabled = false;
+  myDataTypeSlug.style.background = "#ffffff";
+
     ResetForm();
 
 
@@ -804,6 +830,8 @@ $("#AddButton a").on('click',function(event){
 
 //CLICK LIST BUTTONS
 $("#List,#FullList").on('click','tr td a.listItem,a.editItemFull',function(event){
+
+
 
     //PREVENT DEFAULT
     event.preventDefault();
@@ -923,6 +951,8 @@ console.log(results);
 //$("#Sidebar").show();
 
 
+
+
 var itemType = results.info.type.toLowerCase();
 var itemLink = results.info.url;
 var itemTypeURL = results.info.typeurl;
@@ -943,7 +973,7 @@ var myInfoDescription = document.getElementById("info_description");
 var myInfoKeywords = document.getElementById("info_keywords");
 
 
-var myDataTypeSlug = document.getElementById("input_slug");
+//var myDataTypeSlug = document.getElementById("input_slug");
 var myViewItemLink = document.getElementById("ViewItem");
 
 myDataTypeSlug.value = itemLink;
@@ -952,7 +982,10 @@ myViewItemLink.href = "/"+itemTypeURL+"/"+itemLink;
 myInfoDescription.value = results.info.description;
 myInfoKeywords.value = results.info.keywords;
 
-
+//DISABLE URL INPUT SLUG
+  NewItem = false;
+   // myDataTypeSlug.disabled = true;
+  myDataTypeSlug.style.background = "#dcdcdc";
 
   var selectDD = $('#SelectDataType');
   var selectVal = "";

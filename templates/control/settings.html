@@ -69,6 +69,12 @@
     </div>
 
 <div id="settings_panel">
+
+      <!-- SITE-->
+     <details open>
+     <summary> Site Settings</summary>
+
+
           <h3 class="formTitle">Site Settings</h3>
           <label>Site Closed</label>
           <br/>
@@ -79,12 +85,18 @@
           <br>
           <div><label>Site Title</label><br/><input type="input" name="site_title" placeholder="Site Title" value="{{$v.SiteTitle}}" class="control_forms" /></div>
           <br>
+          <div><label>Admin Email</label><br/><input type="input" name="admin_email" placeholder="Admin Email" value="{{$v.AdminEmail}}" class="control_forms" /></div>
+
           <div><label>Google Analytics</label><br/><input type="input" name="site_analytics" placeholder="UA-1234-0" value="{{$v.SiteAnalytics}}" class="control_forms" /></div>
           <br>
           <div><label>Soon URL</label><br/><input type="input" name="soon_url" placeholder="Soon URL" value="{{$v.SoonURL}}" class="control_forms" /></div>
           <br>
+    </details> 
 
-    
+
+          <!-- CACHE-->
+     <details open>
+     <summary> CACHE Settings</summary>
 
    
           <h3 class="formTitle">Cache Settings</h3>
@@ -94,6 +106,9 @@
           <br>
           <div><label>Cache Months</label><br/><input type="input" name="cache_months" placeholder="Cache Months" value="{{$v.CacheMonths}}" class="control_forms" /></div>
           <br>
+
+              </details> 
+
       <!--
           <h3 class="formTitle">Homepage Settings</h3>
           <div><label>Home Title</label><br/><input type="input" name="home_title" placeholder="Home Title" value="{{$v.HomeTitle}}" class="control_forms" /></div>
@@ -104,21 +119,25 @@
           <br>-->
       
 
-   
+      <!-- IMAGES-->
+     <details open>
+     <summary> Image Settings</summary>
 
-  
+          <h3 class="formTitle">Images</h3>
+          <p>Coming Soon!</p>
+    </details> 
+
+  <!--
           <h3>Email Settings</h3>
-          <div><label>Admin Email</label><br/><input type="input" name="admin_email" placeholder="Admin Email" value="{{$v.AdminEmail}}" class="control_forms" /></div>
           <br>
           <div><label>From Email</label><br/><input type="input" name="from_email" placeholder="From Email" value="{{$v.FromEmail}}" class="control_forms" /></div>
           <br>
           <div><label>To Email</label><br/><input type="input" name="to_email" placeholder="To Email" value="{{$v.ToEmail}}" class="control_forms" /></div>
           
-    
+    -->
 
 
-          <h3 class="formTitle">Images</h3>
-          <p>Coming Soon!</p>
+     
      
 
    <!--TAB5

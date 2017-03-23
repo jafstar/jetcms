@@ -6,7 +6,7 @@ import (
   "fmt"
   "appengine"
   "appengine/datastore"
-    "appengine/capability"
+   // "appengine/capability"
 
   //"appengine/blobstore"
   //"encoding/csv"
@@ -34,7 +34,7 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
   /*******************************GET**************************/
   if r.Method == "GET"{
   
-
+/*
   //VARS
   checkDataRead  := "checkOnline"
   checkDataWrite := "checkOnline"
@@ -78,7 +78,7 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
         return
   } 
 
-
+*/
   /*
   	 uploadURL, err := blobstore.UploadURL(c, "/"+AdminSlug+"/files/", nil)
 
@@ -127,19 +127,23 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
         map[string]string {
          //"title": db[i].Filename,
          "key":k,
+        
          "SiteTitle":db[i].Site_Title,
          "SiteClosed":db[i].Site_Closed,
          "SiteAnalytics":db[i].Site_Analytics,
-         "HomeTitle":db[i].Home_Title,
-         "HomeDesc":db[i].Home_Desc,
-         "HomeKeyW":db[i].Home_KeyW,
-         "SoonTitle":db[i].Soon_Title,
-         "SoonDesc":db[i].Soon_Desc,
-         "SoonKeyW":db[i].Soon_KeyW,
-         "SoonURL":db[i].Soon_URL,
+        
+        // "HomeTitle":db[i].Home_Title,
+         //"HomeDesc":db[i].Home_Desc,
+         //"HomeKeyW":db[i].Home_KeyW,
+         //"SoonTitle":db[i].Soon_Title,
+         //"SoonDesc":db[i].Soon_Desc,
+        // "SoonKeyW":db[i].Soon_KeyW,
+        "SoonURL":db[i].Soon_URL,
+        
          "AdminEmail":db[i].Admin_Email,
-         "FromEmail":db[i].From_Email,
-         "ToEmail":db[i].To_Email,
+        // "FromEmail":db[i].From_Email,
+        // "ToEmail":db[i].To_Email,
+        
          "CacheControl":db[i].Cache_Control,
          "CacheDays":db[i].Cache_Days,
          "CacheMonths":db[i].Cache_Months,
@@ -150,13 +154,13 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
             "Phone":"text",
             "Message":"textarea", 
           },*/
-          "checkDataRead":checkDataRead,
-          "checkDataWrite":checkDataWrite,
-          "checkMail":checkMail,
-          "checkCache":checkCache,
-          "checkBlob":checkBlob,
-          "dataCenter":appengine.Datacenter(),
-          "serverSoftware":appengine.ServerSoftware(),
+         // "checkDataRead":checkDataRead,
+          //"checkDataWrite":checkDataWrite,
+          //"checkMail":checkMail,
+         // "checkCache":checkCache,
+         // "checkBlob":checkBlob,
+          //"dataCenter":appengine.Datacenter(),
+          //"serverSoftware":appengine.ServerSoftware(),
 
 
        },
@@ -177,16 +181,16 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
          "SiteTitle":"",
          "SiteClosed":"",
          "SiteAnalytics":"",
-         "HomeTitle":"",
-         "HomeDesc":"",
-         "HomeKeyW":"",
-         "SoonTitle":"",
-         "SoonDesc":"",
-         "SoonKeyW":"",
+        // "HomeTitle":"",
+         //"HomeDesc":"",
+         //"HomeKeyW":"",
+         //"SoonTitle":"",
+         //"SoonDesc":"",
+         //"SoonKeyW":"",
          "SoonURL":"",
          "AdminEmail":"",
-         "FromEmail":"",
-         "ToEmail":"",
+         //"FromEmail":"",
+         //"ToEmail":"",
          "CacheControl":"",
          "CacheDays":"",
          "CacheMonths":"",
@@ -217,20 +221,20 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
     Site_Title: formVal("site_title"),
     Site_Closed: formVal("site_closed"),
     Site_Analytics:formVal("site_analytics"),
-    Home_Title: formVal("home_title"),
-    Home_Desc: formVal("home_desc"),
-    Home_KeyW: formVal("home_keyw"),
-    Soon_Title: formVal("soon_title"),
-    Soon_Desc: formVal("soon_desc"),
-    Soon_KeyW: formVal("soon_keyw"),
+   // Home_Title: formVal("home_title"),
+    //Home_Desc: formVal("home_desc"),
+    //Home_KeyW: formVal("home_keyw"),
+    //Soon_Title: formVal("soon_title"),
+   // Soon_Desc: formVal("soon_desc"),
+    //Soon_KeyW: formVal("soon_keyw"),
     Soon_URL:formVal("soon_url"),
     Cache_Control:formVal("cache_control"),
     Cache_Days:formVal("cache_days"),
     Cache_Months:formVal("cache_months"),
 
     Admin_Email: formVal("admin_email"),
-    From_Email: formVal("from_email"),
-    To_Email: formVal("to_email"),
+    //From_Email: formVal("from_email"),
+    //To_Email: formVal("to_email"),
     Last_Update: time.Now(),
   }
   
@@ -248,19 +252,19 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
 
   
 
-      //FLUST LIST
+      //FLUSH LIST
       list := []string {
          "SiteTitle",
          "SiteClosed",
          "SiteAnalytics",
 
-         "HomeTitle",
-         "HomeDesc",
-         "HomeKeyW",
+        // "HomeTitle",
+        // "HomeDesc",
+        // "HomeKeyW",
 
-         "SoonTitle",
-         "SoonDesc",
-         "SoonKeyW",
+         //"SoonTitle",
+         //"SoonDesc",
+         //"SoonKeyW",
          "SoonURL",
          "CacheControl",
          "CacheDays",
@@ -268,8 +272,8 @@ func control_settings(w http.ResponseWriter, r *http.Request) {
 
 
          "AdminEmail",
-         "FromEmail",
-         "ToEmail",
+        // "FromEmail",
+         //"ToEmail",
       }
 
       //FLUSH CACHE

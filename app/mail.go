@@ -22,8 +22,8 @@ func  sendEmail(w http.ResponseWriter, r *http.Request, subject string, message 
   msg := &mail.Message{
           //Sender: FROM_EMAIL,
           //To: []string{TO_EMAIL},
-          Sender: settings["FromEmail"],
-          To: []string{settings["ToEmail"]},
+          Sender: settings["AdminEmail"],
+          To: []string{settings["AdminEmail"]},
           Subject: subject, 
           Body: message,
         }

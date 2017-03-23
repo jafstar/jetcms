@@ -18,6 +18,13 @@ import (
   //"bytes"
   //"image"
     "appengine/urlfetch"
+
+   //     "cloud.google.com/go/storage"
+//        "golang.org/x/net/context"
+
+          //  "google.golang.org/appengine/file"
+      //  "google.golang.org/appengine/log"
+
 )
 
 //FUNC IMAGES WITH BLOBKEY
@@ -91,7 +98,15 @@ func imagesNormal(w http.ResponseWriter, r *http.Request) {
 func imagesCloud(w http.ResponseWriter, r *http.Request) {
 
 c := appengine.NewContext(r)
-
+/*
+     //BUCKET NAME
+        bucketName, err := file.DefaultBucketName(ctx); 
+        
+        if err != nil {
+            //log.Errorf(ctx, "failed to get default GCS bucket name: %v", err)
+            fmt.Fprintln(w,"error with making upload URL on GET:" + err.Error())
+            return
+        }*/
 
   //PARSE URL
   realURL,_ := url.Parse(r.RequestURI)
@@ -109,15 +124,17 @@ c := appengine.NewContext(r)
 
 
 	  //GET IMAGE KEY
-	  //stringKey := getImageKey(w,r,fileName)
+	  stringKey := getImageKey(w,r,fileName)
 
 	  //CONVERT STRING TO BLOBKEY
-	  imgKey,_ := blobstore.BlobKeyForFile(c,fileName)
+	  imgKey,_ := blobstore.BlobKeyForFile(c,"/gs/test_bucket/"+fileName)
 
 
 	  //DEBUG
 	  //l := len(url)
-	 fmt.Fprintln(w, "Cloud URL: " + imgKey)
+	 fmt.Fprintln(w, "Cloud URL: " + stringKey)
+	 	 fmt.Fprintln(w, "Blok Key: " + imgKey)
+
 	  //fmt.Fprintln(w, "Real  URL: " + realURL.Path)
 	  //fmt.Fprintln(w, "FileName: " + fileName)
 

@@ -1,4 +1,4 @@
-       <div id="ItemsList">
+<!--<div id="ItemsList">
 
         <table id="AllList">
         {{range $k,$v := .List}}
@@ -13,10 +13,109 @@
             
         {{end}}
         </table>
+</div>-->
+
+<!--STYLE-->
+<style>
+  label {
+    /*
+    display: inline-block;
+    width: 80px;*/
+  }
+
+  textarea {
+    min-height: 400px;
+  }
+
+  #PageBar,#sectionContent {
+    display: none;
+  }
+
+  #ItemLinkShell {
+    text-align: right;
+    padding-right: 100px;
+    text-decoration: underline;
+  }
+
+  #editor-container {
+  height: 375px;
+  background: #fff;
+}
+
+.hiddenTextarea {
+  display: none;
+}
+
+#ListShell {
+width: 100%;
+margin-top: 50px;
+background: #fff;
+}
+
+#FIELDS_BOX,#Sidebar,#OPTIONS_BOX {
+  display: none;
+  margin-left: 10px;
+}
+
+
+#SelectDiv {
+  float: none;
+}
+</style>
+
+
+<!--START FULL ITEM LIST-->
+<div id="ListShell">
+
+    <!--ADD-->
+    <div id="AddNewButton">
+      <a href="/#new">New</a>
+    </div>
+
+      <!--SELECT DROPDOWN-->
+      <table id="FullList">
+      <theader>
+      <tr>
+      <td>Title</td>
+      <td>URL</td>
+      <td>Date</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      </tr>
+      </theader>
+      {{range $k,$v := .List}}
+        <tr>
+          <td>
+            <a href="/{{$.Globals.AdminSlug}}/pages/edit/{{$v.key}}" class="listItem">{{$v.title}}</a>
+          </td>
+          <td class="itemTypeTD">
+          <a href="{{$v.slug}}" target="_blank">{{$v.slug}}</a>
+          </td> 
+
+          <td class="itemDateTD">
+          {{$v.date}}
+          </td> 
+
+          <td class="viewItemFullTD">
+            <a href="{{$v.slug}}" target="_blank" class="viewItemFull">View</a>
+          </td>
+
+          <td class="editItemFullTD">
+            <a href="/{{$.Globals.AdminSlug}}/pages/edit/{{$v.key}}" class="listItem">Edit</a>
+          </td>
+
+          <td class="deleteItemFullTD">
+            <a href="/{{$.Globals.AdminSlug}}/pages/delete/{{$v.key}}" class="deleteItemFull">Delete</a>
+          </td>
+        </tr> 
+      {{end}}
+      </table>
+
 </div>
 
 <!--START SECTION-->
-<section id='content'>
+<section id='sectionContent'>
 
 <!--<h2>{{/*.Data.title*/}}</h2>-->
 
@@ -153,6 +252,8 @@
     <summary>Options</summary>
     <div id="OPTIONS_BOX_BG">
        <div id="form_page_slug"><label>URL</label><input id="input_slug" type="input" name="slug" placeholder="/enter-your-title-here" class="control_forms" /></div> 
+            <div id="form_page_pagetitle"><label>Page Title</label><br/><input id="input_page_title" type="input" name="pagetitle" placeholder="Page Title" class="control_forms" /></div>
+
       <div id="form_page_desc"><label>Description</label><br/><input type="input" name="description" placeholder="Description" class="control_forms" /></div>
       <div id="form_page_keyw"><label>Keywords</label><br/><input type="input" name="keywords" placeholder="Keywords" class="control_forms" /></div>
       <div id="form_page_single">
@@ -236,6 +337,8 @@ $(document).ready(function(){
 
  //GLOBALS
  var RowIndex;
+var NewItem = true;
+ var myDataTypeSlug = document.getElementById("input_slug");
 
 
 //KEY FILTER OVERRIDE FOR INPUTS/TEXTAREAS/SELECTS
@@ -258,9 +361,14 @@ key.filter = function(event){
  //EDITING INPUT TITLE
 $("#input_title").on('keyup',function(event){
 
+  if(NewItem){
     //VARS
+
     var title = event.target.value;
     var slug = $("#input_slug")[0];
+    var pageTitle = $("#input_page_title")[0];
+        pageTitle.value = title;
+
 
     //MANIPULATE
     title = title.trim();
@@ -274,18 +382,25 @@ $("#input_title").on('keyup',function(event){
     //title = title.replace(/[\W]/g, "");
     title = title.replace(/[^a-zA-Z0-9\-]/gi,"-");
 
+
     if(title.slice(-1) == "-"){
       var length = title.length;
           length = length -1;
       title = title.substr(0,length);
     } 
 
+    title = title.replace("--","-");
+    title = title.replace("---","-");
+   title = title.replace("----","-");
+
     //ASSIGN TITLE TO SLUG
     slug.value = "/"+title;
+
 
     //DEBUG
     //console.log(event);
     //console.log("inserting BR at Char " + end);
+  }
 
 //END EDIT INPUT TITLE
 });
@@ -416,6 +531,8 @@ function addListItem(res){
     //UPDATE FORM ACTION
     var form = $("#EditForm");
     form.attr('action',titleURL);
+
+
            
 
 }
@@ -427,12 +544,47 @@ $("#AddButton a").on('click',function(event){
     event.preventDefault();
     //var url = event.target.href;
 
+    NewItem = true;
+
     ResetForm();
+
+/*
+       //HIDE FIELDS/DISPLAY LIST
+      $("#ListShell").show();
+      $("#FIELDS_BOX").hide();
+      $("#OPTIONS_BOX").hide();
+      $("#Sidebar").hide();
+      $("#PageBar").hide();
+          $("#sectionContent").hide();
+          */
+
+
+});
+
+//CLICK ADD BUTTON
+$("#AddNewButton a").on('click',function(event){
+    event.preventDefault();
+    //var url = event.target.href;
+    NewItem = true;
+  myDataTypeSlug.disabled = false;
+  myDataTypeSlug.style.background = "#FFF";
+
+    ResetForm();
+
+
+       $("#ListShell").hide();
+    $("#FIELDS_BOX").show();
+    $("#OPTIONS_BOX").show();
+    $("#Sidebar").show();
+    $("#PageBar").show();
+    $("#sectionContent").show();
+          
+
 
 });
 
 //CLICK LIST BUTTONS
-$("#List").on('click','tr td a.listItem',function(event){
+$("#List, #FullList").on('click','tr td a.listItem',function(event){
 
     //PREVENT DEFAULT
     event.preventDefault();
@@ -536,6 +688,16 @@ function ResetForm(){
 
 //FUNC LOAD ITEMS
 function LoadItem(results){
+
+ 
+
+         //HIDE LIST/DISPLAY FIELDS
+    $("#ListShell").hide();
+    $("#FIELDS_BOX").show();
+    $("#OPTIONS_BOX").show();
+    $("#Sidebar").show();
+    $("#PageBar").show();
+    $("#sectionContent").show();
   
   //console.log(results);
   
@@ -582,6 +744,10 @@ function LoadItem(results){
       //console.log(myTextarea.textContent);
       //IDE SET VALUE
       editor.setValue(myTextarea.textContent);
+
+ NewItem = false;
+    //myDataTypeSlug.disabled = true;
+  myDataTypeSlug.style.background = "#dcdcdc";
 
   //END FUNC
   }

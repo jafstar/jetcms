@@ -10,25 +10,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name='description' content='{{.description}}'>
   <meta name='keywords' content='{{.keywords}}'>
-  
-  <link rel='stylesheet' type='text/css' href='/admin/static/dir/alertify.css' />
-  <!--<link rel='stylesheet' type='text/css' href='/admin/static/dir/common.css' />-->
+
+  <link rel='icon' href='/favicon.ico' type='image/x-icon' />
+
+  <!--CSS LOCAL-->
   <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin.css' />
   <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin_desktop.css' />
   <link rel='stylesheet' type='text/css' href='/admin/static/dir/admin_mobile.css' />
 
+  <!--CSS LIBS-->
+  <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.core.min.css' />
+  <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.default.min.css' />
+  <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css' />
 
+<!--
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/alertify.css' />
   <link rel='stylesheet' type='text/css' href='/admin/static/dir/codemirror.css' />
   <link rel='stylesheet' type='text/css' href='/admin/static/dir/spinners.css' />
-  <link rel='icon' href='/favicon.ico' type='image/x-icon' />
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/alertify.css' />
+  <link rel='stylesheet' type='text/css' href='/admin/static/dir/common.css' />
+
+  -->
 
   {{if .css}}<link rel='stylesheet' type='text/css' href='{{.css}}' />{{end}}
 
+<!--
   <script type='text/javascript'  src='/admin/static/dir/jquery.js'></script>
   <script type='text/javascript'  src='/admin/static/dir/alertify.js'></script>
   <script type='text/javascript'  src='/admin/static/dir/keymaster.js'></script>
+  <script type='text/javascript'  src='/admin/static/dir/sortable.js'></script>
   <script type='text/javascript'  src='/admin/static/dir/codemirror.js'></script>
   <script type='text/javascript'  src='/admin/static/dir/mode/xml/xml.js'></script>
+-->
+
+<!--JS LIBS-->
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/alertify.js/0.3.11/alertify.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/keymaster/1.6.1/keymaster.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.1/Sortable.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js'></script>
+  <script type='text/javascript'  src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/css/css.min.js'></script>
+
   
   {{if .js}}<script type='text/javascript' src='{{.js}}'></script>{{end}}
 
@@ -82,13 +105,22 @@
             <li><a class="sub_item" href='/{{.AdminSlug}}/settings'>Settings</a></li>
             <li><a class="sub_item" href='/' target="_blank" id="SM_ViewSite">View Site</a></li>
             <li><a class="sub_item" href='/{{.AdminSlug}}/cache/flush' id="Flush">Flush Cache</a></li>
+            <li><a class="sub_item" href='/{{.AdminSlug}}/static/generator/' >Static Generator</a></li>
+
             <li><a class="sub_item" href='{{.logout}}' id="SM_LogOut">Logout</a></li>
-            <li><a class="sub_item" href='http://appengine.google.com' target="_blank">App Engine</a></li>
-            <!--<li><a class="sub_item" href='http://console.developers.google.com' target="_blank">Dev Console</a></li>-->
+            <li><a class="sub_item" href='https://console.cloud.google.com/appengine' target="_blank">Cloud Console</a></li>
+            <li><a class="sub_item" href='https://console.cloud.google.com/storage/browser' target="_blank">Storage Console</a></li>
           </ul>
         </div>
       </li>
-      <li><a href='/{{.AdminSlug}}/stats'>Stats</a></li>
+
+
+      <li>
+
+      <a href='/{{.AdminSlug}}/stats'>Stats</a>
+
+
+      </li>
 
       <!--OTHER TOP LEVEL LINKS
       <li><a href="#">About</a></li>

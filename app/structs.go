@@ -82,10 +82,13 @@ type BlobInfo struct {
 }
 
 
-//BASIC STRUCTS
+
+
+//PAGE
 type Page struct {
   Slug string			`json:"slug"`
   Title string			`json:"title"`
+  PageTitle string		`json:"pagetitle"`
   Description string	`json:"description"`
   Keywords string		`json:"keywords"`
   Content string 		`datastore:",noindex" json:"content"`
@@ -95,6 +98,20 @@ type Page struct {
   Single string			`json:"single"`
   //List []map[string]string
 }
+
+//STATIC PAGE
+type StaticPage struct {
+  URL string			`json:"url"`
+  Title string			`json:"title"`
+  Description string	`json:"description"`
+  Keywords string		`json:"keywords"`
+  Content string 		`datastore:",noindex" json:"content"`
+  Template string		`json:"template"`
+  Single string			`json:"single"`
+
+}
+
+
 
 type Content struct {
 	List []map[string]string
@@ -118,27 +135,45 @@ type Style struct {
 
 
 type Settings struct {
+	Last_Update time.Time
+
 	Site_Title string	`json:"site_title"`
 	Site_Closed string	`json:"site_closed"`
 	Site_Analytics string `json:"site_analytics"`
+	Site_Parser string
 
-	Home_Title string	`json:"home_title"`
-	Home_Desc string	`json:"home_desc"`
-	Home_KeyW string	`json:"home_keyw"`
+	//Home_Title string	`json:"home_title"`
+	//Home_Desc string	`json:"home_desc"`
+	//Home_KeyW string	`json:"home_keyw"`
 
 	Cache_Control string `json:"cache_control"`
 	Cache_Days string 		 `json:"cache_days"`
 	Cache_Months string 	 `json:"cache_months"`
 	
-	Soon_Title string	`json:"soon_title"`
-	Soon_Desc string	`json:"soon_desc"`
-	Soon_KeyW string	`json:"soon_keyw"`
 	Soon_URL string		`json:"soon_url"`
-
 	Admin_Email string	`json:"admin_email"`
-	From_Email string	`json:"from_email"`
-	To_Email string 	`json:"to_email"`
-	Last_Update time.Time
+
+
+
+	//Soon_Title string	`json:"soon_title"`
+	//Soon_Desc string	`json:"soon_desc"`
+	//Soon_KeyW string	`json:"soon_keyw"`
+	//From_Email string	`json:"from_email"`
+	//To_Email string 	`json:"to_email"`
+}
+
+
+
+type SetImages struct {
+	Img_Desktop int
+	Img_Tablet int
+	Img_Mobile int
+	Img_Large int
+	Img_Medium int
+	Img_Small int
+	Img_Icon int
+	Img_Mini int
+	Img_Micro int
 }
 
 
@@ -198,6 +233,7 @@ type FieldType struct {
 	Name string
 	//Label string
 	UI string
+	Order string
 	//Value string
 	//Errors string
 }

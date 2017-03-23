@@ -2,6 +2,7 @@ package app
 
 import (
   "fmt"
+  "bytes"
   "strings"
   //"net/url"
   "net/http"
@@ -10,6 +11,8 @@ import (
   "appengine/user"
   "strconv"
   //"appengine/blobstore"
+     //     "google.golang.org/appengine/log"
+
   "time"
 )
 
@@ -204,6 +207,10 @@ func render(w http.ResponseWriter, r *http.Request,file string, data map[string]
 
   html := map[string]template.HTML{}
 
+
+if data["pagetitle"] != "" {
+  data["title"] = data["pagetitle"]
+}
 
 
   data["Year"] = t
@@ -647,77 +654,102 @@ func renderControl(w http.ResponseWriter, r *http.Request, file string, data map
 }
 
 
+//FUNC RENDER STATIC
+func renderStatic(w http.ResponseWriter, r *http.Request,file string, data map[string]string, list []map[string]map[string]string) string{
 
 
-/*
 
-//RENDER CONTROL
-func renderControl(w http.ResponseWriter, r *http.Request, file string, data map[string]string){
+  core := getCore(w,r)
+  header := template.HTML(``+core["CoreHeader"]+``)
+  footer := template.HTML(``+core["CoreFooter"]+``)
 
-  //ADMIN?
-  //fmt.Fprint(w, r.Header["X-Appengine-Inbound-User-Is-Admin"] )
-  // fmt.Fprint(w, r.TransferEncoding )
-  //fmt.Fprint(w, r.Header["X-Requested-With"] )
+ htmlTemp := template.New("html content")
+ tempHead := template.New("header")
+ tempFoot := template.New("footer")
+
+ //MUST COME BEFORE PARSE
+  htmlTemp.Funcs(template.FuncMap{
+    "justSayIt": justSayIt,
+    "FormatDate":FormatDate,
+    "FormatHTML":FormatHTML,
+  })
 
 
-  //CONTEXT
-  c := appengine.NewContext(r)
+  //PARSE
+ htmlContent, _ := htmlTemp.Parse(data["content"])
+ htmlHeader, _  := tempHead.Parse(core["CoreHeader"])
+ htmlFooter, _  := tempFoot.Parse(core["CoreFooter"])
+ 
+
+
+  //const layout = "2006"
+  t := time.Now().Format("2006")
+  ie := template.HTML(`<!--[if lt IE 10]><link rel='stylesheet' type='text/css' href='/css/ie.css' /><![endif]-->`)
   
-  //TEMPLATES  
-  header := template.Must(template.ParseFiles(
-    "templates/control/control_header.html",
-  ))
-  
-  body := template.Must(template.ParseFiles(
-    "templates/" + file,
-  ))
-  
-  scripts := template.Must(template.ParseFiles(
-    "templates/control/control_scripts.html",
-  ))
-  
-  
-  footer := template.Must(template.ParseFiles(
-    "templates/control/control_footer.html",
-  ))
-  
-  //SET HEADERS
-  w.Header().Set("Content-Type", "text/html")
-  
-
-  //GET AJAX
-  ajax := r.Header.Get("X-Requested-With")
+  content := template.HTML(``+data["content"]+``)
 
 
+  html := map[string]template.HTML{}
 
-  //CHECK AJAX
-  if ajax  == "XMLHttpRequest" {
+if data["pagetitle"] != "" {
+  data["title"] = data["pagetitle"]
+}
 
-    //EXECUTE  
-    body.Execute(w, data)
-    scripts.Execute(w, data)
+  data["Year"] = t
+  html["IE"] = ie 
 
+  html["content"] = content
+  html["Header"] = header
+  html["Footer"] = footer
+  //data["class"] = 
+
+  newView := View {
+    //Menus: menus,
+    HTML:html,
+    Data: data,
+    List: list,
+    //Site: site,
+  }
+
+
+
+  //MUST PASS CHECKS  
+  tpl1 := template.Must(htmlHeader,nil)//.Execute(w,newView)
+  tpl0 := template.Must(htmlContent,nil)//.Execute(w,newView)
+  tpl2 := template.Must(htmlFooter,nil)//.Execute(w,newView)
+
+
+var printHead bytes.Buffer
+var printBody bytes.Buffer
+var printFoot bytes.Buffer
+
+
+
+
+ tpl1.Execute(&printHead,newView)
+ tpl0.Execute(&printBody,newView)
+ tpl2.Execute(&printFoot,newView)
+
+
+STATIC_PAGE_STRING := ""
+
+  if(data["single"] == "1"){
+    STATIC_PAGE_STRING =  printBody.String()
   } else {
-  
-    url,_ := user.LogoutURL(c, "/")
-    data["logout"] = url
-  
-    //EXECUTE
-    header.Execute(w, data)
-    body.Execute(w, data)
-    footer.Execute(w, data)
+    STATIC_PAGE_STRING = printHead.String() + printBody.String() + printFoot.String()
+
   }
 
 
-  /*
-  //ERROR
-  err := 
-  if err != nil {
-    fmt.Fprint(w, err)
-  }
-  */
-  
-  //fmt.Fprint(w, r.Host   )
+//DEBUG
+//fmt.Fprintln(w,htmlHeader)
+//fmt.Fprintln(w,htmlContent)
+//fmt.Fprintln(w,htmlFooter)
+//fmt.Fprintln(w,newView)
+//fmt.Fprintln(w,"STATIC GENERATED:")
+//fmt.Fprintln(w, STATIC_PAGE_STRING)
 
+return STATIC_PAGE_STRING
 
-//}**/
+//END FUNC
+}

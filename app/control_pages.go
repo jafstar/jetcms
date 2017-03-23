@@ -64,8 +64,10 @@ func control_pages_list(w http.ResponseWriter, r *http.Request) {
         "key":k,   
         "type":k,
          "title": db[i].Title,
+         "pagetitle": db[i].PageTitle,
          "content":db[i].Content,
          "description": db[i].Description,
+         "keywords": db[i].Keywords,
          "slug":db[i].Slug,
 
        },
@@ -80,6 +82,7 @@ func control_pages_list(w http.ResponseWriter, r *http.Request) {
         dbEntry := Page {
               Slug: "/",//formVal("slug"),
               Title: "Homepage",//formVal("title"),
+              PageTitle:"Welcome to the homepage!",
               Description: "Default Jet CMS homepage",//formVal("description"),
               Keywords: "",//formVal("keywords"),
               Content: DEFAULT_PAGE_CONTENT,//"Welcome to the default Jet CMS homepage.",//formVal("content"),
@@ -134,6 +137,7 @@ func control_pages_list(w http.ResponseWriter, r *http.Request) {
   newPage := Page {
     Slug: formVal("slug"),
     Title: formVal("title"),
+    PageTitle: formVal("pagetitle"),
     Description: formVal("description"),
     Keywords: formVal("keywords"),
     Content: formVal("content"),
@@ -232,6 +236,7 @@ func control_pages_edit(w http.ResponseWriter, r *http.Request) {
     m := Page {
       bb[0].Slug,
       bb[0].Title,
+      bb[0].PageTitle,
       bb[0].Description,
       bb[0].Keywords,
       bb[0].Content,
@@ -268,6 +273,7 @@ func control_pages_edit(w http.ResponseWriter, r *http.Request) {
     newPage := &Page {
       Slug: formVal("slug"),
       Title: formVal("title"),
+      PageTitle: formVal("pagetitle"),
       Description: formVal("description"),
       Keywords: formVal("keywords"),
       Content: formVal("content"),

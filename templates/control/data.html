@@ -151,7 +151,7 @@
     <!--HIDDEN INPUTS-->
     <input type="hidden" name="token" value="{{/*.token*/}}" />
     <input type="hidden" name="field_count" value="" id="FieldCount" />
-    
+    <input type="hidden" name="field_loaded_url" value="" id="FieldLoadedURL" />
 
   
 
@@ -362,8 +362,8 @@ input#submitBtn:hover {
  var myDataTypeSlug = document.getElementById("input_slug");
  var myDataDescription = document.getElementById("input_description");
  var myDataKeywords = document.getElementById("input_keywords");
-
-
+ var HiddenInput_LoadedURL = document.getElementById("FieldLoadedURL");
+  var NewItem = true;
 
  var editor = CodeMirror.fromTextArea(myTextarea, {
     lineNumbers: true,
@@ -403,7 +403,10 @@ input#submitBtn:hover {
 function listenOnInput(){
    //EDITING INPUT TITLE
   $("input[name='typeName']").on('keyup',function(event){
-    console.log(event);
+
+    if(NewItem){
+      console.log(event);
+
 
       //VARS
       var title = event.target.value;
@@ -434,6 +437,7 @@ function listenOnInput(){
       //DEBUG
       //console.log(event);
       //console.log("inserting BR at Char " + end);
+    } 
 
   //END EDIT INPUT TITLE
   });
@@ -540,31 +544,16 @@ $(document).ready(function(){
 
       listenOnInput();
 
- /*
- var field = 
-    '<div>'
-  + '<br />'
-  + '<label>Label</label><input type="input" name="fieldlabel" placeholder="Label" class="control_forms" />'
-  + '<br />'
-  + '<label>Name</label><input type="input" name="fieldname" placeholder="Name" class="control_forms" />'
-  + '<br />'
-  + '<label>Type</label><select name="fieldtype" placeholder="Type"><option>text</option><option>textarea</option></select>'
-  + '<br />'
-  + '<label>Errors</label><select multiple name="fielderrors" placeholder="Errors"><option>blank</option><option>email</option><option>phone</option></select>'
-  + '<br />'
-  + '<br />'
-  + '<hr />'
-  + '</div>';*/
 
   //ADD FIELD
   function AddField(){
        var field = 
-          '<div id="fieldDataRow' + FieldIndex +'"">'
+          '<div id="fieldDataRow' + FieldIndex +'" data-order"'+FieldIndex+'">'
         + '<br>'
         + '<input type="input" name="fieldName'+FieldIndex+'" placeholder="Fieldname" class="control_forms" />'
         + '&nbsp;&nbsp;'
        // + '<label>Label</label>'
-        //+'<input type="input" name="fieldLabel'+FieldIndex+'" class="control_forms" />'
+        +'<input type="hidden" name="fieldOrder'+FieldIndex+'" value="'+FieldIndex+'" />'
         + '&nbsp;&nbsp;'
         //+ '<label>UI</label>'
         + '<select name="fieldUI'+FieldIndex+'" class="control_forms">'
@@ -585,18 +574,7 @@ $(document).ready(function(){
         + '<br>'
         + '<hr>'
         + '</div>';
-        /*
-        + '<label>Errors</label>'
-        //+ '&nbsp;&nbsp;&nbsp;'
-        //+ '<select multiple name="fieldErrors'+FieldIndex+'" >'
-        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="blank">blank &nbsp;'
-        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="email">email &nbsp;'
-        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="phone">phone &nbsp;'
-        + '<input type="checkbox" name="fieldErrors'+FieldIndex+'"  value="url">url &nbsp;'
-        */
-        //+ '<option>email</option>'
-        //+ '<option>phone</option>'
-        //+ '</select>'
+
 
 
       $("#Fields").append(field);
@@ -634,31 +612,7 @@ $(document).ready(function(){
       var form =  $("#EditForm")[0];
         //console.log(form.action);
         submitForm(form.action);
-    /*
-      var url = event.target.action;
 
-      //console.log(event);
-      console.log($("#EditForm").serialize());
-
-      //AJAX
-      $.ajax({
-         type: "POST",
-         url: url,
-         data: $("#EditForm").serialize(),
-         success: function(res){
-            //ALERT
-            alertify.success(res.message);
-
-            //IF KEY
-            if(res.key){
-              addListItem(res);
-            } else {
-              updateListItem(res.title);
-            }
-         }
-       });
-
-      return false;*/
 
    });
 
@@ -682,6 +636,9 @@ $("a.control_forms_delete").on('click',function(event){
 $("#AddButton a").on('click',function(event){
     event.preventDefault();
     //var url = event.target.href;
+    NewItem = true;
+  myDataTypeSlug.disabled = false;
+  myDataTypeSlug.style.background = "#FFF";
 
     ResetForm();
 
@@ -793,6 +750,9 @@ function ResetForm(){
 //FUNC LOAD ITEMS
 function LoadItem(results){
   
+  NewItem = false;
+  //myDataTypeSlug.disabled = true;
+  myDataTypeSlug.style.background = "#DCDCDC";
   //ResetForm(); //CAUSED ISSUES
 
   //console.log(results);
@@ -827,6 +787,7 @@ function LoadItem(results){
       if(formName == 'slug'){
                  // myDataTypeSlug.value = "/" + results[0].typeurl;
                    myDataTypeSlug.value =  results[0].typeurl;
+                   HiddenInput_LoadedURL.value = results[0].typeurl;
       }
 
       if(formName == 'description'){
@@ -854,6 +815,8 @@ function LoadItem(results){
 
             var inputItem = $("#EditForm input[name='fieldName"+ r +"']");
                 inputItem[0].value = results[0].fields[r].Name;
+            var orderItem = $("#EditForm input[name='fieldOrder"+ r +"']");
+                orderItem[0].value = results[0].fields[r].Order;
 
             var selectItem = $("#EditForm select[name='fieldUI"+ r +"']");
            //console.log(selectItem);

@@ -17,6 +17,19 @@ import (
   "time"
 )
 
+type UploadURLOptions struct {
+    MaxUploadBytes        int64 // optional
+    MaxUploadBytesPerBlob int64 // optional
+
+    // StorageBucket specifies the Google Cloud Storage bucket in which
+    // to store the blob.
+    // This is required if you use Cloud Storage instead of Blobstore.
+    // Your application must have permission to write to the bucket.
+    // You may optionally specify a bucket name and path in the format
+    // "bucket_name/path", in which case the included path will be the
+    // prefix of the uploaded object's name.
+    StorageBucket string
+}
 
 //var queryType = "data"
 
@@ -31,6 +44,13 @@ func control_files_upload_url(w http.ResponseWriter, r *http.Request) {
 
   /*******************************GET URL**************************/
   if r.Method == "GET"{
+
+/*
+    var uploadOptions *blobstore.UploadURLOptions;
+
+    uploadOptions {
+      StorageBucket: "staging.jetcmsapp.appspot.com",
+    }*/
   
      uploadURL, errURL := blobstore.UploadURL(c, "/"+AdminSlug+"/files/", nil)
 

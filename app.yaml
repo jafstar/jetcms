@@ -1,12 +1,17 @@
-application: yourappenginename
-version: 0-0-4
+application: jetcmsapp
+version: 2-0
 runtime: go
 api_version: go1
 default_expiration: "1m"
 
+
 #[START env_variables]
+#www.jetcms.org
 env_variables:
-  GCLOUD_STORAGE_BUCKET: staging.yourappenginename.appspot.com
+  GCLOUD_STORAGE_BUCKET: staging.jetcmsapp.appspot.com
+  GCLOUD_STAGING_BUCKET: staging.jetcmsapp.appspot.com
+  GCLOUD_DOMAIN_BUCKET: www.jetcms.com
+
 #[END env_variables]
 
 handlers:
@@ -32,6 +37,3 @@ handlers:
 
 - url: /.*
   script: _go_app
-
-
-
